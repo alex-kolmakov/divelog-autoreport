@@ -1,6 +1,6 @@
 if 'transformer' not in globals():
     from mage_ai.data_preparation.decorators import transformer
-import joblib
+import mlflow
 import pandas as pd
 
 
@@ -45,7 +45,6 @@ def generate_report(dive_features, model):
 def update_report_with_names(report, all_dives):
     dive_number = report.get("Dive Number")
     dive = all_dives.loc[all_dives['dive_number'] == dive_number]
-    
     if not dive.empty:
         dive_name = dive['dive_site_name'].values[0]
         trip_name = dive['trip_name'].values[0]
@@ -53,20 +52,32 @@ def update_report_with_names(report, all_dives):
             "Dive Site": dive_name,
             "Trip": trip_name
         })
+    else:
+        return None
     return report
 
 @transformer
-def generate_reports(dive_data, inference_model_and_features, *args, **kwargs):
+def generate_reports(inference_model_and_features, dive_data, *args, **kwargs):
     # Convert dive_data and features to DataFrames
     dives = pd.DataFrame(dive_data['parse_divelog'][0]).groupby(by=['dive_number']).first().reset_index()
     features = pd.DataFrame(inference_model_and_features['feature_engineering'][0])
     
-    # Load the trained model
-    model = joblib.load(inference_model_and_features['model_training'][0]['filename'])
-    
+    model = mlflow.sklearn.load_model(model_uri=inference_model_and_features['model_training'][0]['model_path'])
+
     reports = []
     for index, dive_features in features.iterrows():
         report = generate_report(dive_features, model)
         report = update_report_with_names(report, dives)
-        reports.append(report)
+        if report:
+            reports.append(report)
+    
+    reports = pd.DataFrame(reports)
+
     return pd.DataFrame(reports)
+
+@test
+def test_output(output, *args) -> None:
+    """
+    Template code for testing the output of the block.
+    """
+    assert output is not None, 'The output is undefined'

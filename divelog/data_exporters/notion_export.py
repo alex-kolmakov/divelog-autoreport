@@ -7,7 +7,6 @@ from divelog.utils.notion_helpers import add_or_update_page
 
 @data_exporter
 def export_data(reports, *args, **kwargs):
-
     for index, report in reports.iterrows():
         add_or_update_page(report)
 

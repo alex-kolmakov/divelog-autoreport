@@ -19,7 +19,7 @@ def extract_all_dive_profiles_refined(root):
     dive_data = []
     
     # Create a map of divesite UUIDs to their names
-    divesites = {ds.attrib['uuid']: ds.attrib.get('name', 'N/A').replace(' ', '') for ds in root.findall('.//site')}
+    divesites = {ds.attrib['uuid'].replace(' ', ''): ds.attrib.get('name', 'N/A') for ds in root.findall('.//site')}
     # Track dive sites outside of trip tags
     trip_map = {}
     for trip in root.findall('.//trip'):
@@ -71,7 +71,6 @@ def transform(data, *args, **kwargs):
 
 @test
 def test_output(output, *args) -> None:
-    """
-    Template code for testing the output of the block.
-    """
     assert output is not None, 'The output is undefined'
+    names = output[['dive_site_name', 'trip_name']]
+    assert names[names.isnull().any(axis=1)].empty, 'There are NaN values in names of trips or divesites in the dataframe'

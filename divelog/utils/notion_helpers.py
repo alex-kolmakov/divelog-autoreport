@@ -18,7 +18,7 @@ headers = {
 def form_properties(report):
     return {
         "Dive Number": {
-            "title": [
+            "rich_text": [
                 {
                     "text": {
                         "content": str(report["Dive Number"])
@@ -36,7 +36,7 @@ def form_properties(report):
             ]
         },
         "Dive Site": {
-            "rich_text": [
+            "title": [
                 {
                     "text": {
                         "content": report["Dive Site"]
@@ -96,20 +96,16 @@ def add_or_update_page(report):
     pages = get_all_pages(NOTION_DATABASE_ID, headers)
     page_id = None
     for page in pages:
-        title = page['properties']['Dive Number']['title'][0]['text']['content']
+        title = page['properties']['Dive Number']['rich_text'][0]['text']['content']
         if title == str(report["Dive Number"]):
             page_id = page['id']
             break
     
     if page_id:
         status_code, response = update_page(page_id, report, headers)
-        if status_code == 200:
-            print(f"Successfully updated report for Dive {report['Dive Number']}")
-        else:
+        if status_code != 200:
             print(f"Failed to update report for Dive {report['Dive Number']}: {response}")
     else:
         status_code, response = send_to_notion(report, NOTION_API_TOKEN, NOTION_DATABASE_ID)
-        if status_code == 200:
-            print(f"Successfully added report for Dive {report['Dive Number']}")
-        else:
+        if status_code != 200:
             print(f"Failed to add report for Dive {report['Dive Number']}: {response}")

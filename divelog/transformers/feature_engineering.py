@@ -53,13 +53,19 @@ def feature_extract(data, *args, **kwargs):
         avg_pressure=('pressure', 'mean'),
         max_pressure=('pressure', 'max'),
         pressure_variability=('pressure', 'std'),
-        min_rbt=('rbt', 'min'),
         min_ndl=('ndl', 'min'),
         sac_rate=('sac_rate', 'first')
     ).reset_index()
 
     # Merge the ascend speed features with other features
     features = features.merge(ascend_speed_features, on='dive_number')
+       # Fill NaN values in variability columns with the mean of each column
+    features['depth_variability'].fillna(features['depth_variability'].mean(), inplace=True)
+    features['temp_variability'].fillna(features['temp_variability'].mean(), inplace=True)
+    features['pressure_variability'].fillna(features['pressure_variability'].mean(), inplace=True)
+    features['avg_pressure'].fillna(features['avg_pressure'].mean(), inplace=True)
+    features['max_pressure'].fillna(features['max_pressure'].mean(), inplace=True)
+    features['sac_rate'].fillna(features['sac_rate'].mean(), inplace=True)
 
     features = features.dropna()
 
@@ -71,3 +77,4 @@ def test_output(output, *args) -> None:
     Template code for testing the output of the block.
     """
     assert output is not None, 'The output is undefined'
+    assert output[output.isna().any(axis=1)].empty, 'There are NaN values in the dataframe'

@@ -4,12 +4,9 @@ adverse_condition_labelling_model:
   settings:
     feature_engineering: {}
     model_training: {}
-  outdated_after:
-    weeks: 2
+
 dive_data:
   object_type: pipeline
   object_uuid: load_dives
-  outdated_after:
-    seconds: 1000
   settings:
     parse_divelog: {}
