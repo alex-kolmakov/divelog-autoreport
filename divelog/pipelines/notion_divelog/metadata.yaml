@@ -2,6 +2,60 @@ blocks:
 - all_upstream_blocks_executed: true
   color: null
   configuration:
+    global_data_product:
+      uuid: adverse_condition_labelling_model
+  downstream_blocks:
+  - generate_reports
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: inference_model
+  retry_config: null
+  status: executed
+  timeout: null
+  type: global_data_product
+  upstream_blocks: []
+  uuid: inference_model
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    global_data_product:
+      uuid: dive_data
+  downstream_blocks:
+  - generate_reports
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: dive_data
+  retry_config: null
+  status: executed
+  timeout: null
+  type: global_data_product
+  upstream_blocks: []
+  uuid: dive_data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - notion_export
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: generate_reports
+  retry_config: null
+  status: updated
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - inference_model
+  - dive_data
+  uuid: generate_reports
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
     file_source:
       path: data_exporters/notion_export.py
   downstream_blocks: []
@@ -11,10 +65,11 @@ blocks:
   language: python
   name: notion_export
   retry_config: null
-  status: not_executed
+  status: executed
   timeout: null
   type: data_exporter
-  upstream_blocks: []
+  upstream_blocks:
+  - generate_reports
   uuid: notion_export
 cache_block_output_in_memory: false
 callbacks: []
@@ -37,7 +92,6 @@ settings:
 spark_config: {}
 tags: []
 type: python
-updated_at: null
 uuid: notion_divelog
 variables_dir: /home/src/mage_data/divelog
 widgets: []

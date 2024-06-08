@@ -30,16 +30,15 @@ def calculate_ascend_speed(data):
 # Define criteria for adverse conditions
 def label_adverse_conditions(features_df):
     features_df['adverse_conditions'] = (
-        (features_df['depth_variability'] > 10) |  # Example threshold for high depth variability
-        (features_df['sac_rate'] > 20.0) |  # Example threshold for high SAC rate
-        ((features_df['min_ndl'] > 0) & (features_df['min_ndl'] < 2)) |  # NDL criterion
-        (features_df['high_ascend_speed_count'] > 2) |
-        (features_df['max_ascend_speed'] > 20)
+        (features_df['sac_rate'] > 16) &  # Example threshold for high SAC rate
+        ((features_df['min_ndl'] < 10)) &  # NDL criterion
+        ((features_df['high_ascend_speed_count'] > 1) | (features_df['max_ascend_speed'] > 20))
     ).astype(int)
     return features_df
 
 @transformer
 def feature_extract(data, *args, **kwargs):
+
     data=pd.DataFrame(data['parse_divelog'][0])
     # Calculate ascend speed features
     ascend_speed_features = calculate_ascend_speed(data)
@@ -56,7 +55,7 @@ def feature_extract(data, *args, **kwargs):
         pressure_variability=('pressure', 'std'),
         min_rbt=('rbt', 'min'),
         min_ndl=('ndl', 'min'),
-        sac_rate=('sac_rate', 'first')  # SAC rate should be the same for each dive
+        sac_rate=('sac_rate', 'first')
     ).reset_index()
 
     # Merge the ascend speed features with other features

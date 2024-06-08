@@ -14,12 +14,26 @@ def time_to_minutes(time_str):
         return int(parts[0]) * 60 + int(parts[1])
     return float(time_str)
 
-# Extract dive profiles for all dives with refined temperature handling
-def extract_all_dive_profiles_refined(dives_element):
+# Extract dive profiles for all dives with refined temperature handling and additional fields
+def extract_all_dive_profiles_refined(root):
     dive_data = []
     
-    for dive in dives_element.findall('dive'):
+    # Create a map of divesite UUIDs to their names
+    divesites = {ds.attrib['uuid']: ds.attrib.get('name', 'N/A').replace(' ', '') for ds in root.findall('.//site')}
+    # Track dive sites outside of trip tags
+    trip_map = {}
+    for trip in root.findall('.//trip'):
+        trip_name = trip.attrib.get('location', 'N/A')
+        for dive in trip.findall('dive'):
+            dive_number = dive.attrib.get('number', 'N/A')
+            trip_map[dive_number] = trip_name
+    # Extract dive profiles
+    for dive in root.findall('.//dive'):
         dive_number = dive.attrib.get('number', 'N/A')
+        trip_name = trip_map.get(dive_number, 'N/A')
+        dive_site_uuid = dive.attrib.get('divesiteid', 'N/A')
+        dive_site_name = divesites.get(dive_site_uuid, 'N/A')
+        
         sac_rate = dive.attrib.get('sac', 'N/A').replace(' l/min', '')
         for sample in dive.findall('.//sample'):
             time = sample.attrib.get('time', 'N/A').replace(' min', '')
@@ -32,6 +46,8 @@ def extract_all_dive_profiles_refined(dives_element):
             if time != 'N/A' and depth != 'N/A':
                 data_point = {
                     'dive_number': dive_number,
+                    'trip_name': trip_name,
+                    'dive_site_name': dive_site_name,
                     'time': time_to_minutes(time),
                     'depth': float(depth),
                     'temperature': float(temperature) if temperature else None,
@@ -41,18 +57,16 @@ def extract_all_dive_profiles_refined(dives_element):
                     'sac_rate': float(sac_rate) if sac_rate != 'N/A' else None
                 }
                 dive_data.append(data_point)
-
-    return dive_data
+    return pd.DataFrame(dive_data)
 
 
 @transformer
 def transform(data, *args, **kwargs):
-
     # Load and parse the XML file
     tree = ET.parse(data['name'])
     root = tree.getroot()
 
-    return extract_all_dive_profiles_refined(root.find('dives'))
+    return extract_all_dive_profiles_refined(root)
 
 
 @test

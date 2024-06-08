@@ -12,6 +12,7 @@ from xgboost import XGBClassifier
 import numpy as np
 import mlflow
 import mlflow.sklearn
+import datetime
 
 @transformer
 def transform(data, features, *args, **kwargs):
@@ -24,7 +25,7 @@ def transform(data, features, *args, **kwargs):
     y = features['adverse_conditions']
 
     # Split the data into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=42)
     print("Datasets split and prepared.")
     # Define the search space for hyperparameters
     search_space = hp.choice('classifier_type', [
@@ -38,19 +39,31 @@ def transform(data, features, *args, **kwargs):
             'type': 'gradient_boosting',
             'n_estimators': hp.choice('n_estimators_gb', np.arange(50, 500, 50)),
             'max_depth': hp.choice('max_depth_gb', np.arange(3, 15, 1)),
-            'learning_rate': hp.uniform('learning_rate_gb', 0.01, 0.3)
+            'learning_rate': hp.uniform('learning_rate_gb', 0.01, 0.4)
         },
         {
             'type': 'xgboost',
             'n_estimators': hp.choice('n_estimators_xgb', np.arange(50, 500, 50)),
             'max_depth': hp.choice('max_depth_xgb', np.arange(3, 15, 1)),
-            'learning_rate': hp.uniform('learning_rate_xgb', 0.01, 0.3),
-            'gamma': hp.uniform('gamma_xgb', 0, 0.5)
+            'learning_rate': hp.uniform('learning_rate_xgb', 0.01, 0.4),
+            'gamma': hp.uniform('gamma_xgb', 0, 0.4)
         }
     ])
 
     # Set MLflow tracking URI
     mlflow.set_tracking_uri("http://mlflow:8012")
+    # Create a unique experiment name with date and description
+    experiment_name = f"divelog-adverse-classifier-{datetime.date.today()}"
+
+    # Create or get the experiment
+    experiment = mlflow.get_experiment_by_name(experiment_name)
+    if experiment is None:
+        experiment_id = mlflow.create_experiment(experiment_name)
+    else:
+        experiment_id = experiment.experiment_id
+
+    mlflow.set_experiment(experiment_name)
+
 
     # Define the objective function
     def objective(params):
@@ -99,14 +112,14 @@ def transform(data, features, *args, **kwargs):
             mlflow.log_metric("roc_auc", roc_auc)
             mlflow.sklearn.log_model(model, "model")
 
-            return {'loss': -roc_auc, 'status': STATUS_OK, 'model': model}
+            return {'loss': -accuracy, 'status': STATUS_OK, 'model': model}
 
     print("Search ranges for models and objective func defined.")
 
     # Perform hyperparameter optimization
     trials = Trials()
     print("Started training and looking for the best possible function..")
-    best = fmin(fn=objective, space=search_space, algo=tpe.suggest, max_evals=50, trials=trials)
+    best = fmin(fn=objective, space=search_space, algo=tpe.suggest, max_evals=10, trials=trials)
 
     best_model = trials.best_trial['result']['model']
 
