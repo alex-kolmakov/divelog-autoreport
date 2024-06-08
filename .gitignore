@@ -134,3 +134,4 @@ cython_debug/
 
 divelog/credentials.json
 mlflow/*
+mage_data/*
