@@ -1,1 +1,0 @@
-{"dive_number": "str", "time": "int64", "depth": "float64", "temperature": "float64", "pressure": "float64", "rbt": "float64", "ndl": "float64", "sac_rate": "float64"}

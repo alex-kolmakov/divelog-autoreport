@@ -42,7 +42,7 @@ def extract_all_dive_profiles_refined(dives_element):
                 }
                 dive_data.append(data_point)
 
-    return pd.DataFrame(dive_data)
+    return dive_data
 
 
 @transformer

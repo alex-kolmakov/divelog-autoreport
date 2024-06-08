@@ -10,7 +10,7 @@ services:
     command: mage start divelog
     container_name: magic
     env_file:
-      - env.sample
+      - .env
     build:
       context: .
       dockerfile: Dockerfile
@@ -19,5 +19,16 @@ services:
     volumes:
       - .:/home/src/
     restart: on-failure:5
+    networks:
+      - shared_network
+
+  mlflow:
+    build:
+      context: .
+      dockerfile: mlflow.dockerfile
+    ports:
+      - "8012:8012"
+    volumes:
+      - "${PWD}/mlflow:/home/mlflow/"
     networks:
       - shared_network

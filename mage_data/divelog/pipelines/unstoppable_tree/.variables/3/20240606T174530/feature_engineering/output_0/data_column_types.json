@@ -1,1 +1,0 @@
-{"dive_number": "str", "avg_depth": "float64", "max_depth": "float64", "depth_variability": "float64", "avg_temp": "float64", "max_temp": "float64", "temp_variability": "float64", "avg_pressure": "float64", "max_pressure": "float64", "pressure_variability": "float64", "min_rbt": "float64", "min_ndl": "float64", "sac_rate": "float64", "adverse_conditions": "int64"}
