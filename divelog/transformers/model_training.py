@@ -11,7 +11,7 @@ from xgboost import XGBClassifier
 import numpy as np
 import mlflow
 import mlflow.sklearn
-import datetime
+from datetime import datetime
 import pandas as pd
 
 @transformer
@@ -54,7 +54,7 @@ def transform(data, features, *args, **kwargs):
     # Set MLflow tracking URI
     mlflow.set_tracking_uri("http://mlflow:8012")
     # Create a unique experiment name with date and description
-    experiment_name = f"divelog-adverse-classifier-{datetime.date.today()}"
+    experiment_name = f"divelog-adverse-classifier-{datetime.utcnow()}"
 
     # Create or get the experiment
     experiment = mlflow.get_experiment_by_name(experiment_name)
@@ -112,14 +112,14 @@ def transform(data, features, *args, **kwargs):
             mlflow.log_metric("roc_auc", roc_auc)
             mlflow.sklearn.log_model(model, "model")
 
-            return {'loss': -roc_auc, 'status': STATUS_OK, 'model': model, 'run_id': mlflow.active_run().info.run_id}
+            return {'loss': -precision, 'status': STATUS_OK, 'model': model, 'run_id': mlflow.active_run().info.run_id}
 
     print("Search ranges for models and objective func defined.")
 
     # Perform hyperparameter optimization
     trials = Trials()
     print("Started training and looking for the best possible function..")
-    best = fmin(fn=objective, space=search_space, algo=tpe.suggest, max_evals=10, trials=trials)
+    best = fmin(fn=objective, space=search_space, algo=tpe.suggest, max_evals=100, trials=trials)
 
     best_model = trials.best_trial['result']['model']
     best_run_id = trials.best_trial['result']['run_id']

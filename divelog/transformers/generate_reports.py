@@ -56,6 +56,9 @@ def update_report_with_names(report, all_dives):
         return None
     return report
 
+
+mlflow.set_tracking_uri("http://mlflow:8012")
+
 @transformer
 def generate_reports(inference_model_and_features, dive_data, *args, **kwargs):
     # Convert dive_data and features to DataFrames

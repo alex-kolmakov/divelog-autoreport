@@ -11,6 +11,7 @@ def calculate_ascend_speed(data):
     data['time_diff'] = data.groupby('dive_number')['time'].diff().fillna(0)
     data['depth_diff'] = data.groupby('dive_number')['depth'].diff().fillna(0)
     data['ascend_speed'] = (data['depth_diff'] / data['time_diff']) * 60  # Convert to meters per minute
+    data['ascend_speed'] = data['ascend_speed'] * -1 # Because positife depth diff means we are gaining depth
     data['ascend_speed'] = data['ascend_speed'].replace([np.inf, -np.inf], np.nan).fillna(0)  # Handle infinite and NaN values
 
     # Calculate the maximum ascend speed per dive
@@ -31,8 +32,8 @@ def calculate_ascend_speed(data):
 def label_adverse_conditions(features_df):
     features_df['adverse_conditions'] = (
         (features_df['sac_rate'] > 16) &  # Example threshold for high SAC rate
-        ((features_df['min_ndl'] < 10)) &  # NDL criterion
-        ((features_df['high_ascend_speed_count'] > 1) | (features_df['max_ascend_speed'] > 20))
+        ((features_df['min_ndl'] < 20)) &  # NDL criterion
+        ((features_df['high_ascend_speed_count'] > 1) | (features_df['max_ascend_speed'] > 10))
     ).astype(int)
     return features_df
 

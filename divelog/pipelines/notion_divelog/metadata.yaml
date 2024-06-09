@@ -53,11 +53,11 @@ blocks:
   - inference_model
   - dive_data
   uuid: generate_reports
-- all_upstream_blocks_executed: false
-  color: null
+- all_upstream_blocks_executed: true
+  color: teal
   configuration:
     file_source:
-      path: data_exporters/notion_export.py
+      path: custom/notion_export.py
   downstream_blocks: []
   executor_config: null
   executor_type: local_python
@@ -67,7 +67,7 @@ blocks:
   retry_config: null
   status: executed
   timeout: null
-  type: data_exporter
+  type: custom
   upstream_blocks:
   - generate_reports
   uuid: notion_export

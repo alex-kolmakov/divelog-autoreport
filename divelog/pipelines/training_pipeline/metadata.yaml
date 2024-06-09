@@ -101,7 +101,7 @@ widgets:
   language: python
   name: feature_engineering_pie chart_j7
   retry_config: null
-  status: failed
+  status: executed
   timeout: null
   type: chart
   upstream_blocks:
