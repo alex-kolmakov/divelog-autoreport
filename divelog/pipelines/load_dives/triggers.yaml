@@ -1,0 +1,14 @@
+triggers:
+- description: null
+  envs: []
+  last_enabled_at: 2024-06-09 11:00:53.762525
+  name: Subsurface gdrive load ED
+  pipeline_uuid: load_dives
+  schedule_interval: 5 11 * * *
+  schedule_type: time
+  settings: null
+  sla: null
+  start_time: 2024-06-09 11:00:00
+  status: active
+  token: 7d5e187cbc7648919a69e2b827a3a7b6
+  variables: {}
