@@ -1,14 +1,1 @@
-triggers:
-- description: null
-  envs: []
-  last_enabled_at: 2024-06-09 11:02:12.161990
-  name: Notion divelog update ED
-  pipeline_uuid: notion_divelog
-  schedule_interval: 20 11 * * *
-  schedule_type: time
-  settings: null
-  sla: null
-  start_time: 2024-06-09 11:01:00
-  status: active
-  token: e2410afb5fca454eb7977118769cc129
-  variables: {}
+triggers: []

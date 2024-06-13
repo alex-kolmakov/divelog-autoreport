@@ -112,14 +112,14 @@ def transform(data, features, *args, **kwargs):
             mlflow.log_metric("roc_auc", roc_auc)
             mlflow.sklearn.log_model(model, "model")
 
-            return {'loss': -precision, 'status': STATUS_OK, 'model': model, 'run_id': mlflow.active_run().info.run_id}
+            return {'loss': -roc_auc-recall-precision, 'status': STATUS_OK, 'model': model, 'run_id': mlflow.active_run().info.run_id}
 
     print("Search ranges for models and objective func defined.")
 
     # Perform hyperparameter optimization
     trials = Trials()
     print("Started training and looking for the best possible function..")
-    best = fmin(fn=objective, space=search_space, algo=tpe.suggest, max_evals=100, trials=trials)
+    best = fmin(fn=objective, space=search_space, algo=tpe.suggest, max_evals=10, trials=trials)
 
     best_model = trials.best_trial['result']['model']
     best_run_id = trials.best_trial['result']['run_id']

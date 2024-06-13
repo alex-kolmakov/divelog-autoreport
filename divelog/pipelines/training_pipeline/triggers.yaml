@@ -1,14 +1,1 @@
-triggers:
-- description: null
-  envs: []
-  last_enabled_at: 2024-06-09 11:02:21.692445
-  name: Retrain adverse classifier ED
-  pipeline_uuid: training_pipeline
-  schedule_interval: 10 11 * * *
-  schedule_type: time
-  settings: null
-  sla: null
-  start_time: 2024-06-09 11:01:00
-  status: active
-  token: a3bf429b8d904b6a91b7d7d5a3c30b9d
-  variables: {}
+triggers: []

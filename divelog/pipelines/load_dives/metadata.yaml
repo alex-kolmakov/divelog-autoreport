@@ -25,7 +25,7 @@ blocks:
   language: python
   name: parse_divelog
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: transformer
   upstream_blocks:
