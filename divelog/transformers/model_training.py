@@ -119,7 +119,7 @@ def transform(data, features, *args, **kwargs):
     # Perform hyperparameter optimization
     trials = Trials()
     print("Started training and looking for the best possible function..")
-    best = fmin(fn=objective, space=search_space, algo=tpe.suggest, max_evals=10, trials=trials)
+    best = fmin(fn=objective, space=search_space, algo=tpe.suggest, max_evals=100, trials=trials)
 
     best_model = trials.best_trial['result']['model']
     best_run_id = trials.best_trial['result']['run_id']
