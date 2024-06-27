@@ -26,7 +26,7 @@ def generate_report(dive_features, model):
         "Pressure Variability": dive_features['pressure_variability'],
         "Minimal NDL": dive_features['min_ndl'],
         "SAC Rate": dive_features['sac_rate'],
-        "Predicted Rating": predicted_rating,
+        "Rating": predicted_rating,
         "Issues": []
     }
     
