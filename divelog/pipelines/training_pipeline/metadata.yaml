@@ -30,7 +30,7 @@ blocks:
       path: transformers/feature_engineering.py
   downstream_blocks:
   - model_training
-  - feature_engineering_pie_chart_j7
+  - feature_engineering_pie_chart_l0
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -55,7 +55,7 @@ blocks:
   language: python
   name: model_training
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: transformer
   upstream_blocks:
@@ -99,11 +99,11 @@ widgets:
   executor_type: local_python
   has_callback: false
   language: python
-  name: feature_engineering_pie chart_j7
+  name: feature_engineering_pie chart_l0
   retry_config: null
-  status: executed
+  status: failed
   timeout: null
   type: chart
   upstream_blocks:
   - feature_engineering
-  uuid: feature_engineering_pie_chart_j7
+  uuid: feature_engineering_pie_chart_l0

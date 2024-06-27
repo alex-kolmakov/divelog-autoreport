@@ -31,9 +31,7 @@ def calculate_ascend_speed(data):
 # Define criteria for adverse conditions
 def label_adverse_conditions(features_df):
     features_df['adverse_conditions'] = (
-        (features_df['sac_rate'] > 16) &  # Example threshold for high SAC rate
-        ((features_df['min_ndl'] < 20)) &  # NDL criterion
-        ((features_df['high_ascend_speed_count'] > 1) | (features_df['max_ascend_speed'] > 10))
+        (features_df['rating'] < 3)
     ).astype(int)
     return features_df
 
@@ -55,12 +53,13 @@ def feature_extract(data, *args, **kwargs):
         max_pressure=('pressure', 'max'),
         pressure_variability=('pressure', 'std'),
         min_ndl=('ndl', 'min'),
-        sac_rate=('sac_rate', 'first')
+        sac_rate=('sac_rate', 'first'),
+        rating=('rating', 'first')
     ).reset_index()
 
     # Merge the ascend speed features with other features
     features = features.merge(ascend_speed_features, on='dive_number')
-       # Fill NaN values in variability columns with the mean of each column
+    # Fill NaN values in variability columns with the mean of each column
     features['depth_variability'].fillna(features['depth_variability'].mean(), inplace=True)
     features['temp_variability'].fillna(features['temp_variability'].mean(), inplace=True)
     features['pressure_variability'].fillna(features['pressure_variability'].mean(), inplace=True)

@@ -35,6 +35,7 @@ def extract_all_dive_profiles_refined(root):
         dive_site_name = divesites.get(dive_site_uuid, 'N/A')
         
         sac_rate = dive.attrib.get('sac', 'N/A').replace(' l/min', '')
+        rating = dive.attrib.get('rating', 'N/A')
         for sample in dive.findall('.//sample'):
             time = sample.attrib.get('time', 'N/A').replace(' min', '')
             depth = sample.attrib.get('depth', 'N/A').replace(' m', '')
@@ -54,7 +55,8 @@ def extract_all_dive_profiles_refined(root):
                     'pressure': float(pressure) if pressure else None,
                     'rbt': float(rbt) if rbt else None,
                     'ndl': float(ndl) if ndl else None,
-                    'sac_rate': float(sac_rate) if sac_rate != 'N/A' else None
+                    'sac_rate': float(sac_rate) if sac_rate != 'N/A' else None,
+                    'rating': int(rating) if rating else None
                 }
                 dive_data.append(data_point)
     return pd.DataFrame(dive_data)

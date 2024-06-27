@@ -32,21 +32,21 @@ def transform(data, features, *args, **kwargs):
     search_space = hp.choice('classifier_type', [
         {
             'type': 'random_forest',
-            'n_estimators': hp.choice('n_estimators_rf', np.arange(50, 500, 50)),
-            'max_depth': hp.choice('max_depth_rf', np.arange(5, 50, 5)),
+            'n_estimators': hp.choice('n_estimators_rf', np.arange(10, 100, 10)),
+            'max_depth': hp.choice('max_depth_rf', np.arange(2, 25, 2)),
             'min_samples_split': hp.choice('min_samples_split_rf', np.arange(2, 11, 2))
         },
         {
             'type': 'gradient_boosting',
-            'n_estimators': hp.choice('n_estimators_gb', np.arange(50, 500, 50)),
+            'n_estimators': hp.choice('n_estimators_gb', np.arange(5, 100, 5)),
             'max_depth': hp.choice('max_depth_gb', np.arange(3, 15, 1)),
-            'learning_rate': hp.uniform('learning_rate_gb', 0.01, 0.5)
+            'learning_rate': hp.uniform('learning_rate_gb', 0.05, 0.5)
         },
         {
             'type': 'xgboost',
-            'n_estimators': hp.choice('n_estimators_xgb', np.arange(50, 500, 50)),
+            'n_estimators': hp.choice('n_estimators_xgb', np.arange(10, 100, 10)),
             'max_depth': hp.choice('max_depth_xgb', np.arange(3, 15, 1)),
-            'learning_rate': hp.uniform('learning_rate_xgb', 0.01, 0.5),
+            'learning_rate': hp.uniform('learning_rate_xgb', 0.05, 0.5),
             'gamma': hp.uniform('gamma_xgb', 0, 0.5)
         }
     ])
@@ -112,14 +112,14 @@ def transform(data, features, *args, **kwargs):
             mlflow.log_metric("roc_auc", roc_auc)
             mlflow.sklearn.log_model(model, "model")
 
-            return {'loss': -roc_auc-recall-precision, 'status': STATUS_OK, 'model': model, 'run_id': mlflow.active_run().info.run_id}
+            return {'loss': -roc_auc-recall, 'status': STATUS_OK, 'model': model, 'run_id': mlflow.active_run().info.run_id}
 
     print("Search ranges for models and objective func defined.")
 
     # Perform hyperparameter optimization
     trials = Trials()
     print("Started training and looking for the best possible function..")
-    best = fmin(fn=objective, space=search_space, algo=tpe.suggest, max_evals=100, trials=trials)
+    best = fmin(fn=objective, space=search_space, algo=tpe.suggest, max_evals=1000, trials=trials)
 
     best_model = trials.best_trial['result']['model']
     best_run_id = trials.best_trial['result']['run_id']
