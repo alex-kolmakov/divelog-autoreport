@@ -10,33 +10,29 @@ def generate_report(dive_features, model):
     
     # Prepare the feature vector for the model
     feature_vector = dive_features[['avg_depth', 'max_depth', 'depth_variability', 
-                                    'avg_temp', 'max_temp', 'temp_variability', 
                                     'avg_pressure', 'max_pressure', 'pressure_variability',
-                                    'min_ndl', 'max_ascend_speed', 'high_ascend_speed_count']].values
+                                    'min_ndl', 'max_ascend_speed', 'high_ascend_speed_count']].values.reshape(1, -1)
     
-    # Predict the likelihood of adverse conditions
-    adverse_conditions_prob = model.predict_proba([feature_vector])[0][1]
-    
+    # Predict the rating
+    predicted_rating = model.predict(feature_vector)[0] + 1  # Adding 1 to match the original rating scale
+
     report = {
         "Dive Number": dive_number,
         "Average Depth": dive_features['avg_depth'],
         "Maximum Depth": dive_features['max_depth'],
         "Depth Variability": dive_features['depth_variability'],
-        "Average Temperature": dive_features['avg_temp'],
-        "Maximum Temperature": dive_features['max_temp'],
-        "Temperature Variability": dive_features['temp_variability'],
         "Average Pressure": dive_features['avg_pressure'],
         "Maximum Pressure": dive_features['max_pressure'],
         "Pressure Variability": dive_features['pressure_variability'],
         "Minimal NDL": dive_features['min_ndl'],
         "SAC Rate": dive_features['sac_rate'],
-        "Likelihood of Adverse Conditions": adverse_conditions_prob,
+        "Predicted Rating": predicted_rating,
         "Issues": []
     }
     
     # Potential issues
-    if adverse_conditions_prob > 0.8:
-        report["Issues"].append("Adverse conditions predicted")
+    if predicted_rating <= 2:
+        report["Issues"].append("Low rating predicted")
     
     return report
 

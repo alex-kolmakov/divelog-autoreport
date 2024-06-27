@@ -18,14 +18,15 @@ import pandas as pd
 def transform(data, features, *args, **kwargs):
 
     # Define feature columns and target
-    feature_cols = ['avg_depth', 'max_depth', 'depth_variability', 'avg_temp', 'max_temp', 
-                    'temp_variability', 'avg_pressure', 'max_pressure', 
-                    'pressure_variability', 'min_ndl', 'max_ascend_speed', 'high_ascend_speed_count']
+    feature_cols = ['avg_depth', 'max_depth', 'depth_variability',
+                    'temp_variability', 'max_pressure', 
+                    'pressure_variability', 'min_ndl', 
+                    'max_ascend_speed', 'high_ascend_speed_count']
     X = features[feature_cols]
-    y = features['adverse_conditions']
+    y = features['rating'] - 1  # Subtract 1 to make ratings start from 0
 
     # Split the data into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=42)
     print("Datasets split and prepared.")
     
     # Define the search space for hyperparameters
@@ -33,20 +34,20 @@ def transform(data, features, *args, **kwargs):
         {
             'type': 'random_forest',
             'n_estimators': hp.choice('n_estimators_rf', np.arange(10, 100, 10)),
-            'max_depth': hp.choice('max_depth_rf', np.arange(2, 25, 2)),
+            'max_depth': hp.choice('max_depth_rf', np.arange(5, 50, 5)),
             'min_samples_split': hp.choice('min_samples_split_rf', np.arange(2, 11, 2))
         },
         {
             'type': 'gradient_boosting',
-            'n_estimators': hp.choice('n_estimators_gb', np.arange(5, 100, 5)),
+            'n_estimators': hp.choice('n_estimators_gb', np.arange(10, 100, 10)),
             'max_depth': hp.choice('max_depth_gb', np.arange(3, 15, 1)),
-            'learning_rate': hp.uniform('learning_rate_gb', 0.05, 0.5)
+            'learning_rate': hp.uniform('learning_rate_gb', 0.01, 0.5)
         },
         {
             'type': 'xgboost',
             'n_estimators': hp.choice('n_estimators_xgb', np.arange(10, 100, 10)),
             'max_depth': hp.choice('max_depth_xgb', np.arange(3, 15, 1)),
-            'learning_rate': hp.uniform('learning_rate_xgb', 0.05, 0.5),
+            'learning_rate': hp.uniform('learning_rate_xgb', 0.01, 0.5),
             'gamma': hp.uniform('gamma_xgb', 0, 0.5)
         }
     ])
@@ -54,7 +55,7 @@ def transform(data, features, *args, **kwargs):
     # Set MLflow tracking URI
     mlflow.set_tracking_uri("http://mlflow:8012")
     # Create a unique experiment name with date and description
-    experiment_name = f"divelog-adverse-classifier-{datetime.utcnow()}"
+    experiment_name = f"divelog-rating-classifier-{datetime.utcnow()}"
 
     # Create or get the experiment
     experiment = mlflow.get_experiment_by_name(experiment_name)
@@ -94,12 +95,12 @@ def transform(data, features, *args, **kwargs):
 
             model.fit(X_train, y_train)
             y_pred = model.predict(X_test)
-            y_prob = model.predict_proba(X_test)[:, 1]
-            
+            y_prob = model.predict_proba(X_test)
+
             accuracy = accuracy_score(y_test, y_pred)
-            precision = precision_score(y_test, y_pred)
-            recall = recall_score(y_test, y_pred)
-            roc_auc = roc_auc_score(y_test, y_prob)
+            precision = precision_score(y_test, y_pred, average='weighted')
+            recall = recall_score(y_test, y_pred, average='weighted')
+            roc_auc = roc_auc_score(y_test, y_prob, multi_class='ovr', average='weighted')
 
             # Log parameters and metrics
             mlflow.log_param("model_type", params['type'])
@@ -112,7 +113,7 @@ def transform(data, features, *args, **kwargs):
             mlflow.log_metric("roc_auc", roc_auc)
             mlflow.sklearn.log_model(model, "model")
 
-            return {'loss': -roc_auc-recall, 'status': STATUS_OK, 'model': model, 'run_id': mlflow.active_run().info.run_id}
+            return {'loss': -recall-accuracy, 'status': STATUS_OK, 'model': model, 'run_id': mlflow.active_run().info.run_id}
 
     print("Search ranges for models and objective func defined.")
 
@@ -125,18 +126,18 @@ def transform(data, features, *args, **kwargs):
     best_run_id = trials.best_trial['result']['run_id']
 
     # Register the best model
-    model_name = "divelog_adverse_classifier"
+    model_name = "divelog_rating_classifier"
     model_uri = f"runs:/{best_run_id}/model"
     registration_result = mlflow.register_model(model_uri, model_name)
     # Make predictions on the testing set with the best model
     y_pred = best_model.predict(X_test)
-    y_prob = best_model.predict_proba(X_test)[:, 1]
+    y_prob = best_model.predict_proba(X_test)
 
     # Evaluate the best model
     accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred)
-    recall = recall_score(y_test, y_pred)
-    roc_auc = roc_auc_score(y_test, y_prob)
+    precision = precision_score(y_test, y_pred, average='weighted')
+    recall = recall_score(y_test, y_pred, average='weighted')
+    roc_auc = roc_auc_score(y_test, y_prob, multi_class='ovr', average='weighted')
 
     model_performance = {
         'accuracy': accuracy,

@@ -49,9 +49,6 @@ def form_properties(report):
         "SAC Rate": {
             "number": report["SAC Rate"]
         },
-        "Likelihood of Adverse Conditions": {
-            "number": report["Likelihood of Adverse Conditions"]
-        },
         "Issues": {
             "multi_select": [
                 {"name": item} for item in report['Issues']

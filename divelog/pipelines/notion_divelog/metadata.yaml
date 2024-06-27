@@ -46,14 +46,14 @@ blocks:
   language: python
   name: generate_reports
   retry_config: null
-  status: failed
+  status: executed
   timeout: null
   type: transformer
   upstream_blocks:
   - inference_model
   - dive_data
   uuid: generate_reports
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
   color: teal
   configuration:
     file_source:
