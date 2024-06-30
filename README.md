@@ -18,7 +18,10 @@ Project is described in depth on the following articles:
 
 ### Setup
 
-pending
+To use this project we will need data exported from the subsurface program. There is a file with my anonimized dive data - feel free to use you own, there is a link on how to export it
+It is important to mention that this project uses gdrive api to fetch fresh exports from the folder. To get it working you need to setup, download and provide path to the credentials.json file
+Now we will need notion application token to utilise export feature.
+All this should be provided to the .env file.
 
 ### Architecture Diagram
 
