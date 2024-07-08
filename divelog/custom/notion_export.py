@@ -1,12 +1,16 @@
 import nest_asyncio
 import asyncio
 import aiohttp
-from divelog.utils.notion_helpers import add_or_update_page, collect_dive_number_to_page_id_map
+from divelog.utils.notion_helpers import (
+    add_or_update_page,
+    collect_dive_number_to_page_id_map,
+)
 
-if 'custom' not in globals():
+if "custom" not in globals():
     from mage_ai.data_preparation.decorators import custom
 
 nest_asyncio.apply()
+
 
 @custom
 def export_data(reports, *args, **kwargs):

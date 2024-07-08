@@ -1,4 +1,3 @@
-
 @data_source
 def d(df):
-    return df[df['status'] == 'running']
+    return df[df["status"] == "running"]

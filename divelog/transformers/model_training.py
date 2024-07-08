@@ -1,6 +1,6 @@
-if 'transformer' not in globals():
+if "transformer" not in globals():
     from mage_ai.data_preparation.decorators import transformer
-if 'test' not in globals():
+if "test" not in globals():
     from mage_ai.data_preparation.decorators import test
 
 from sklearn.model_selection import train_test_split
@@ -14,43 +14,58 @@ import mlflow.sklearn
 from datetime import datetime
 import pandas as pd
 
+
 @transformer
 def transform(data, features, *args, **kwargs):
 
     # Define feature columns and target
-    feature_cols = ['avg_depth', 'max_depth', 'depth_variability',
-                    'temp_variability', 'max_pressure', 
-                    'pressure_variability', 'min_ndl', 
-                    'max_ascend_speed', 'high_ascend_speed_count']
+    feature_cols = [
+        "avg_depth",
+        "max_depth",
+        "depth_variability",
+        "temp_variability",
+        "max_pressure",
+        "pressure_variability",
+        "min_ndl",
+        "max_ascend_speed",
+        "high_ascend_speed_count",
+    ]
     X = features[feature_cols]
-    y = features['rating'] - 1  # Subtract 1 to make ratings start from 0
+    y = features["rating"] - 1  # Subtract 1 to make ratings start from 0
 
     # Split the data into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.15, random_state=42
+    )
     print("Datasets split and prepared.")
-    
+
     # Define the search space for hyperparameters
-    search_space = hp.choice('classifier_type', [
-        {
-            'type': 'random_forest',
-            'n_estimators': hp.choice('n_estimators_rf', np.arange(10, 100, 10)),
-            'max_depth': hp.choice('max_depth_rf', np.arange(5, 50, 5)),
-            'min_samples_split': hp.choice('min_samples_split_rf', np.arange(2, 11, 2))
-        },
-        {
-            'type': 'gradient_boosting',
-            'n_estimators': hp.choice('n_estimators_gb', np.arange(10, 100, 10)),
-            'max_depth': hp.choice('max_depth_gb', np.arange(3, 15, 1)),
-            'learning_rate': hp.uniform('learning_rate_gb', 0.01, 0.5)
-        },
-        {
-            'type': 'xgboost',
-            'n_estimators': hp.choice('n_estimators_xgb', np.arange(10, 100, 10)),
-            'max_depth': hp.choice('max_depth_xgb', np.arange(3, 15, 1)),
-            'learning_rate': hp.uniform('learning_rate_xgb', 0.01, 0.5),
-            'gamma': hp.uniform('gamma_xgb', 0, 0.5)
-        }
-    ])
+    search_space = hp.choice(
+        "classifier_type",
+        [
+            {
+                "type": "random_forest",
+                "n_estimators": hp.choice("n_estimators_rf", np.arange(10, 100, 10)),
+                "max_depth": hp.choice("max_depth_rf", np.arange(5, 50, 5)),
+                "min_samples_split": hp.choice(
+                    "min_samples_split_rf", np.arange(2, 11, 2)
+                ),
+            },
+            {
+                "type": "gradient_boosting",
+                "n_estimators": hp.choice("n_estimators_gb", np.arange(10, 100, 10)),
+                "max_depth": hp.choice("max_depth_gb", np.arange(3, 15, 1)),
+                "learning_rate": hp.uniform("learning_rate_gb", 0.01, 0.5),
+            },
+            {
+                "type": "xgboost",
+                "n_estimators": hp.choice("n_estimators_xgb", np.arange(10, 100, 10)),
+                "max_depth": hp.choice("max_depth_xgb", np.arange(3, 15, 1)),
+                "learning_rate": hp.uniform("learning_rate_xgb", 0.01, 0.5),
+                "gamma": hp.uniform("gamma_xgb", 0, 0.5),
+            },
+        ],
+    )
 
     # Set MLflow tracking URI
     mlflow.set_tracking_uri("http://mlflow:8012")
@@ -69,28 +84,28 @@ def transform(data, features, *args, **kwargs):
     # Define the objective function
     def objective(params):
         with mlflow.start_run():
-            if params['type'] == 'random_forest':
+            if params["type"] == "random_forest":
                 model = RandomForestClassifier(
-                    n_estimators=params['n_estimators'],
-                    max_depth=params['max_depth'],
-                    min_samples_split=params['min_samples_split'],
-                    random_state=42
-                )
-            elif params['type'] == 'gradient_boosting':
-                model = GradientBoostingClassifier(
-                    n_estimators=params['n_estimators'],
-                    max_depth=params['max_depth'],
-                    learning_rate=params['learning_rate'],
-                    random_state=42
-                )
-            elif params['type'] == 'xgboost':
-                model = XGBClassifier(
-                    n_estimators=params['n_estimators'],
-                    max_depth=params['max_depth'],
-                    learning_rate=params['learning_rate'],
-                    gamma=params['gamma'],
+                    n_estimators=params["n_estimators"],
+                    max_depth=params["max_depth"],
+                    min_samples_split=params["min_samples_split"],
                     random_state=42,
-                    use_label_encoder=False
+                )
+            elif params["type"] == "gradient_boosting":
+                model = GradientBoostingClassifier(
+                    n_estimators=params["n_estimators"],
+                    max_depth=params["max_depth"],
+                    learning_rate=params["learning_rate"],
+                    random_state=42,
+                )
+            elif params["type"] == "xgboost":
+                model = XGBClassifier(
+                    n_estimators=params["n_estimators"],
+                    max_depth=params["max_depth"],
+                    learning_rate=params["learning_rate"],
+                    gamma=params["gamma"],
+                    random_state=42,
+                    use_label_encoder=False,
                 )
 
             model.fit(X_train, y_train)
@@ -98,14 +113,16 @@ def transform(data, features, *args, **kwargs):
             y_prob = model.predict_proba(X_test)
 
             accuracy = accuracy_score(y_test, y_pred)
-            precision = precision_score(y_test, y_pred, average='weighted')
-            recall = recall_score(y_test, y_pred, average='weighted')
-            roc_auc = roc_auc_score(y_test, y_prob, multi_class='ovr', average='weighted')
+            precision = precision_score(y_test, y_pred, average="weighted")
+            recall = recall_score(y_test, y_pred, average="weighted")
+            roc_auc = roc_auc_score(
+                y_test, y_prob, multi_class="ovr", average="weighted"
+            )
 
             # Log parameters and metrics
-            mlflow.log_param("model_type", params['type'])
+            mlflow.log_param("model_type", params["type"])
             for key, value in params.items():
-                if key != 'type':
+                if key != "type":
                     mlflow.log_param(key, value)
             mlflow.log_metric("accuracy", accuracy)
             mlflow.log_metric("precision", precision)
@@ -113,17 +130,28 @@ def transform(data, features, *args, **kwargs):
             mlflow.log_metric("roc_auc", roc_auc)
             mlflow.sklearn.log_model(model, "model")
 
-            return {'loss': -recall-accuracy, 'status': STATUS_OK, 'model': model, 'run_id': mlflow.active_run().info.run_id}
+            return {
+                "loss": -recall - accuracy,
+                "status": STATUS_OK,
+                "model": model,
+                "run_id": mlflow.active_run().info.run_id,
+            }
 
     print("Search ranges for models and objective func defined.")
 
     # Perform hyperparameter optimization
     trials = Trials()
     print("Started training and looking for the best possible function..")
-    best = fmin(fn=objective, space=search_space, algo=tpe.suggest, max_evals=1000, trials=trials)
+    best = fmin(
+        fn=objective,
+        space=search_space,
+        algo=tpe.suggest,
+        max_evals=1000,
+        trials=trials,
+    )
 
-    best_model = trials.best_trial['result']['model']
-    best_run_id = trials.best_trial['result']['run_id']
+    best_model = trials.best_trial["result"]["model"]
+    best_run_id = trials.best_trial["result"]["run_id"]
 
     # Register the best model
     model_name = "divelog_rating_classifier"
@@ -135,23 +163,24 @@ def transform(data, features, *args, **kwargs):
 
     # Evaluate the best model
     accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred, average='weighted')
-    recall = recall_score(y_test, y_pred, average='weighted')
-    roc_auc = roc_auc_score(y_test, y_prob, multi_class='ovr', average='weighted')
+    precision = precision_score(y_test, y_pred, average="weighted")
+    recall = recall_score(y_test, y_pred, average="weighted")
+    roc_auc = roc_auc_score(y_test, y_prob, multi_class="ovr", average="weighted")
 
     model_performance = {
-        'accuracy': accuracy,
-        'precision': precision,
-        'recall': recall,
-        'roc_auc': roc_auc,
-        'model_path': f"models:/{model_name}/{registration_result.version}"
+        "accuracy": accuracy,
+        "precision": precision,
+        "recall": recall,
+        "roc_auc": roc_auc,
+        "model_path": f"models:/{model_name}/{registration_result.version}",
     }
 
     return model_performance
+
 
 @test
 def test_output(output, *args) -> None:
     """
     Template code for testing the output of the block.
     """
-    assert output is not None, 'The output is undefined'
+    assert output is not None, "The output is undefined"
