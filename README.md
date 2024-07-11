@@ -5,7 +5,7 @@
 
 ## Problem statement
 
-SCUBA diving is a popular sport and hobby that is enjoyed by millions of people around the world including myself. Divers often keep a log of their dives, which includes information such as the date, time, location, depth, duration, and other details about the dive. All of those details nowdays are measured and kept by so called dive computers - wearable devices that track lots of different parameters with only one goal in mind - to keep the diver safe from various adverse effects.
+SCUBA diving is a popular hobby that is enjoyed by millions of people around the world including myself. Divers need to keep a log of their dives, which includes information such as the time, location, depth, duration, temperature and other details. Nowdays all of them are measured and stored by wearable devices that track lots of different parameters with only one goal in mind - to keep the diver safe from dangerous adverse effects. 
 
 Once the data has been measured it needs to be stored in the digital format for us to access. And there are not so many alternatives for the digital log books, and even less options when it comes open source tools that could be easily integrated and build upon.
 Which is why for this task we are going to be using - [Subsurface](https://github.com/subsurface/subsurface)
