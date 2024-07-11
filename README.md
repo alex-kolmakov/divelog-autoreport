@@ -1,7 +1,33 @@
 
 # Dive log ML pipeline
 
-> This project is my first step on refining the process of extracting insights from my digital logbook. Main goal here is to automatically mark problematic dives that I do for further review. And also to streamline Notion export of the my logbook.
+>  that learns how to rate the dives from your logbook like you do.
+
+## Problem statement
+
+SCUBA diving is a popular sport and hobby that is enjoyed by millions of people around the world including myself. Divers often keep a log of their dives, which includes information such as the date, time, location, depth, duration, and other details about the dive. All of those details nowdays are measured and kept by so called dive computers - wearable devices that track lots of different parameters with only one goal in mind - to keep the diver safe from various adverse effects.
+
+Once the data has been measured it needs to be stored in the digital format for us to access. And there are not so many alternatives for the digital log books, and even less options when it comes open source tools that could be easily integrated and build upon.
+Which is why for this task we are going to be using - [Subsurface](https://github.com/subsurface/subsurface)
+
+As with any other hobby - subjective quality and rating of the dive can vary from amazing to horrendous. And any diver with decent experience will tell you by looking at the pictures below:
+
+
+That the dive number one is much worse then dive number two.
+I will not go into the detail on why (or who was the diver in the pictures :P) but the question is:
+
+```
+> Can we train a model to rate and grade the dives?
+```
+
+
+## Project overview
+
+>Project uses Mage.AI as a main data pipeline orchestration engine, ingests dives export from subsurface then trains classifier on them while keeping experiments tracked through MLFlow.
+>Then it uses Notion API to export the results.
+
+### Setup
+
 
 
 todo
@@ -12,25 +38,9 @@ pytest and coverage
 integrations tests
 
 
-
-## Project overview
-
->Project uses Mage.AI as a main data pipeline orchestration engine, ingests dives export from subsurface then trains classifier on them while keeping experiments tracked through MLFlow.
->Then it uses Notion API to export the results.
-
-### Setup
-
-To use this project we will need data exported from the subsurface program. There is a file with my anonimized dive data - feel free to use you own, there is a link on how to export it
-It is important to mention that this project uses gdrive api to fetch fresh exports from the folder. To get it working you need to setup, download and provide path to the credentials.json file
-Now we will need notion application token to utilise export feature.
-All this should be provided to the .env file.
-
 ### Architecture Diagram
 
 pending
-
-### Data modelling
-
 
 
 ## Acknowledgements & Credits & Support
@@ -41,7 +51,7 @@ If you're interested in contributing to this project, need to report issues or s
 
 
 ### Acknowledgements
-Acknowledgement to #DataTalksClub for mentoring us through the Data Engineering Zoom Camp over the last 10 weeks. It has been a privilege to take part in the Spring '24 Cohort, go and check them out!
+Acknowledgement to #DataTalksClub for mentoring us through the MLops Engineering Zoom Camp over the last 10 weeks. It has been a privilege to take part in the  2024 Cohort, go and check them out!
 
 ![image](https://github.com/alex-kolmakov/divesite-species-analytics/assets/3127175/d6504180-31a9-4cb7-8cd0-26cd2d0a12ad)
 
