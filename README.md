@@ -4,11 +4,13 @@
 > This project is my first step on refining the process of extracting insights from my digital logbook. Main goal here is to automatically mark problematic dives that I do for further review. And also to streamline Notion export of the my logbook.
 
 
-## Articles 
+todo
+Contribute and test
 
-Project is described in depth on the following articles:
+pre-commit install and autoupdate
+pytest and coverage
+integrations tests
 
-- I want to do this - but there is no clear schedule yet
 
 
 ## Project overview

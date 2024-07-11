@@ -132,6 +132,6 @@ cython_debug/
 # Ignore VSCode settings
 .vscode/
 
-divelog/credentials.json
+credentials.json
 mlflow/*
 mage_data/*

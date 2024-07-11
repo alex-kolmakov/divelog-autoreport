@@ -2,6 +2,7 @@ from googleapiclient.discovery import build
 from google.oauth2 import service_account
 import datetime
 import io
+import os
 from googleapiclient.http import MediaIoBaseDownload
 
 if "data_loader" not in globals():
@@ -11,7 +12,8 @@ if "test" not in globals():
 
 
 # Path to your service account key file
-SERVICE_ACCOUNT_FILE = "/home/src/divelog/credentials.json"
+CREDENTIALS_PATH = os.getenv("CREDENTIALS_PATH")
+FOLDER_ID = os.getenv("FOLDER_ID")
 
 # Define the required scope
 SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
@@ -19,7 +21,7 @@ SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
 
 def authenticate_service_account():
     creds = service_account.Credentials.from_service_account_file(
-        SERVICE_ACCOUNT_FILE, scopes=SCOPES
+        CREDENTIALS_PATH, scopes=SCOPES
     )
     return creds
 
@@ -74,14 +76,15 @@ def load_data(*args, **kwargs):
         Anything (e.g. data frame, dictionary, array, int, str, etc.)
     """
     # Specify your data loading logic here
+    if not (CREDENTIALS_PATH and FOLDER_ID):
+        return "anonymized_subsurface_export.ssrf"
+    else:
+        latest_file = get_latest_file_in_folder(FOLDER_ID)
 
-    folder_id = "19SFs0vqGWTEqiUJoHDrNXpZmFtbkLoGy"
-    latest_file = get_latest_file_in_folder(folder_id)
+        if latest_file:
+            download_file(latest_file["id"], latest_file["name"])
 
-    if latest_file:
-        download_file(latest_file["id"], latest_file["name"])
-
-    return latest_file
+        return latest_file["name"]
 
 
 @test
@@ -90,3 +93,5 @@ def test_output(output, *args) -> None:
     Template code for testing the output of the block.
     """
     assert output is not None, "The output is undefined"
+    assert os.path.isfile(output), "The output is not a valid file path"
+    assert os.path.getsize(output) > 0, "The output file is empty"

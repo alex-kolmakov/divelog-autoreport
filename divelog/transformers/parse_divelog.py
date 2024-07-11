@@ -86,7 +86,7 @@ def extract_all_dive_profiles_refined(root):
 @transformer
 def transform(data, *args, **kwargs):
     # Load and parse the XML file
-    tree = ET.parse(data["name"])
+    tree = ET.parse(data)
     root = tree.getroot()
 
     return extract_all_dive_profiles_refined(root)
