@@ -12,6 +12,10 @@ Which is why for this task we are going to be using - [Subsurface](https://githu
 
 As with any other hobby - subjective quality and rating of the dive can vary from amazing to horrendous. And any diver with decent experience will tell you by looking at the pictures below:
 
+| Dive #1  | Dive #2 |
+| ------------- | ------------- |
+| ![Dive #1](https://github.com/alex-kolmakov/divelog-autoreport/assets/3127175/5d043a91-39bb-4b77-a49c-bd19b82cf04a) | ![Dive #2](https://github.com/alex-kolmakov/divelog-autoreport/assets/3127175/86bc990c-55e9-4c14-9db9-310b88b3c4bb)|
+
 
 That the dive number one is much worse then dive number two.
 I will not go into the detail on why (or who was the diver in the pictures :P) but the question is:
