@@ -1,7 +1,17 @@
 
-# Dive log ML pipeline
+# Dive Log Autoreport
 
 >  that learns how to rate the dives from your logbook like you do.
+
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+![Google Drive](https://img.shields.io/badge/Google%20Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![mlflow](https://img.shields.io/badge/mlflow-%23d9ead3.svg?style=for-the-badge&logo=numpy&logoColor=blue)![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=black)
+
+
+
 
 ## Problem statement
 
@@ -27,7 +37,7 @@ I will not go into the detail on why (or who was the diver in the pictures :P) b
 
 ## Project overview
 
-3 pipelines that learn your diving preferences and rates the dives from your Subsurface logbook.
+It consists of 3 pipelines that learn your diving preferences and rate the dives from your Subsurface logbook.
 
  - **Load data** - pipeline that loads the data from the Subsurface logbook, parses data from xml format and provides it as a clean dataframe through Global data product.
  - **Train model** - pipeline that trains the model on the data, uses HyperOpt to pick the best parameters looking at ROC_AUC, recall and precision. After *NUMBER_OF_ITERATIONS* saves the best model to the MLflow registry.
@@ -38,34 +48,34 @@ I will not go into the detail on why (or who was the diver in the pictures :P) b
 ![Autodivelog drawio (2)](https://github.com/user-attachments/assets/7bdb24bb-8f9e-4eab-bfcc-e1de3473000e)
 
 
-
 ### Setup
 
-For the quick start you can use the github codespaces and run the following command:
+Start by running codespace: 
+
+<a href='https://codespaces.new/alex-kolmakov/divelog-autoreport'><img src='https://github.com/codespaces/badge.svg' alt='Open in GitHub Codespaces' style='max-width: 100%;'></a>
+
+And run the following command:
 
 ```docker-compose up --build -d```
 
 video here
 
-It will launch the docker container with all the necessary dependencies and then you can proceed to Mage UI to launch pipelines.
+
 Since we are using Global Data product - if you try to run the last pipeline without running the first one - it will start the prerequisite pipeline automatically. But to have more visibility - my advice is to run them in order: 
 
-Load data -> Train model -> Batch inference.
+**Load data** -> **Train model** -> **Batch inference**.
 
 There is also an option to run this pipeline by setting up your own Google Drive and Notion API credentials. This will allow you to load the data from your own logbook and export the results to your Notion page. For this - please refer to the [additional documentaion](./documentation/setup.md).
 
-todo
-Contribute and test
 
-pre-commit install and autoupdate
-pytest and coverage
-integrations tests
+### Contribute and test
 
+> Project uses Github Actions CI/CD and pre-commit hooks for testing and linting.
 
+Before submitting your pull request please refer to the [contribution guidelines](./documentation/contribution.md). It will guide you through the process of setting up the environment with a precommit hooks and running the linting and tests.
 
 
-
-## Acknowledgements & Credits & Support
+## Acknowledgements & Credits
 
 If you're interested in contributing to this project, need to report issues or submit pull requests, please get in touch via 
 - [GitHub](https://github.com/alex-kolmakov)
