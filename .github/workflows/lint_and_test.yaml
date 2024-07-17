@@ -31,4 +31,4 @@ jobs:
     - name: Install dependencies
       run: pip install -r divelog/requirements.txt
     - name: Run unit tests
-      run: python -m pytest divelog/tests
+      run: python -m pytest .
