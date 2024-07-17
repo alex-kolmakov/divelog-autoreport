@@ -1,12 +1,12 @@
 adverse_condition_labelling_model:
   object_type: pipeline
-  object_uuid: training_pipeline
+  object_uuid: train_model
   settings:
     feature_engineering: {}
     model_training: {}
 
 dive_data:
   object_type: pipeline
-  object_uuid: load_dives
+  object_uuid: load_data
   settings:
     parse_divelog: {}

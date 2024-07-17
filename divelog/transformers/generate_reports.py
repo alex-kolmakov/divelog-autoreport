@@ -66,7 +66,7 @@ mlflow.set_tracking_uri("http://mlflow:8012")
 
 
 @transformer
-def generate_reports(inference_model_and_features, dive_data, *args, **kwargs):
+def generate_reports(dive_data, inference_model_and_features, *args, **kwargs):
     # Convert dive_data and features to DataFrames
     dives = (
         pd.DataFrame(dive_data["parse_divelog"][0])
@@ -95,6 +95,9 @@ def generate_reports(inference_model_and_features, dive_data, *args, **kwargs):
 @test
 def test_output(output, *args) -> None:
     """
-    Template code for testing the output of the block.
+    Testing that resulting reports all contain valid values of the rating
     """
     assert output is not None, "The output is undefined"
+    assert (
+        output["Rating"].apply(lambda x: isinstance(x, int) and x > 0)
+    ).all(), "There are non-positive integer values in the ratings"

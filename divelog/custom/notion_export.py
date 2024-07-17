@@ -1,6 +1,8 @@
 import nest_asyncio
 import asyncio
 import aiohttp
+import os
+
 from divelog.utils.notion_helpers import (
     add_or_update_page,
     collect_dive_number_to_page_id_map,
@@ -11,9 +13,16 @@ if "custom" not in globals():
 
 nest_asyncio.apply()
 
+NOTION_API_TOKEN = os.getenv("NOTION_API_TOKEN")
+NOTION_DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
+
 
 @custom
 def export_data(reports, *args, **kwargs):
+    if not NOTION_API_TOKEN or NOTION_DATABASE_ID:
+        print(f"Notion details were not provided, skipping export to notion..")
+        return reports
+
     async def get_dive_number_to_page_id():
         async with aiohttp.ClientSession() as session:
             dive_number_to_page_id = await collect_dive_number_to_page_id_map(session)

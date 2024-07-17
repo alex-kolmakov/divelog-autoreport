@@ -13,6 +13,10 @@ import mlflow
 import mlflow.sklearn
 from datetime import datetime
 import pandas as pd
+import os
+
+RANDOM_SEED = os.getenv("RANDOM_SEED", 42)
+MAX_EVALUATIONS = os.getenv("MAX_EVALUATIONS", 100)
 
 
 @transformer
@@ -35,7 +39,7 @@ def transform(data, features, *args, **kwargs):
 
     # Split the data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.15, random_state=42
+        X, y, test_size=0.15, random_state=RANDOM_SEED
     )
     print("Datasets split and prepared.")
 
@@ -89,14 +93,14 @@ def transform(data, features, *args, **kwargs):
                     n_estimators=params["n_estimators"],
                     max_depth=params["max_depth"],
                     min_samples_split=params["min_samples_split"],
-                    random_state=42,
+                    random_state=RANDOM_SEED,
                 )
             elif params["type"] == "gradient_boosting":
                 model = GradientBoostingClassifier(
                     n_estimators=params["n_estimators"],
                     max_depth=params["max_depth"],
                     learning_rate=params["learning_rate"],
-                    random_state=42,
+                    random_state=RANDOM_SEED,
                 )
             elif params["type"] == "xgboost":
                 model = XGBClassifier(
@@ -104,7 +108,7 @@ def transform(data, features, *args, **kwargs):
                     max_depth=params["max_depth"],
                     learning_rate=params["learning_rate"],
                     gamma=params["gamma"],
-                    random_state=42,
+                    random_state=RANDOM_SEED,
                     use_label_encoder=False,
                 )
 
@@ -131,7 +135,7 @@ def transform(data, features, *args, **kwargs):
             mlflow.sklearn.log_model(model, "model")
 
             return {
-                "loss": -recall - accuracy,
+                "loss": -roc_auc - accuracy,
                 "status": STATUS_OK,
                 "model": model,
                 "run_id": mlflow.active_run().info.run_id,
@@ -146,7 +150,7 @@ def transform(data, features, *args, **kwargs):
         fn=objective,
         space=search_space,
         algo=tpe.suggest,
-        max_evals=1000,
+        max_evals=MAX_EVALUATIONS,
         trials=trials,
     )
 
@@ -181,6 +185,11 @@ def transform(data, features, *args, **kwargs):
 @test
 def test_output(output, *args) -> None:
     """
-    Template code for testing the output of the block.
+    Testing that model is created and can be pulled.
     """
     assert output is not None, "The output is undefined"
+    try:
+        model_path = mlflow.sklearn.load_model(model_uri=output["model_path"])
+    except Exception:
+        model_path = None
+    assert model_path is not None
