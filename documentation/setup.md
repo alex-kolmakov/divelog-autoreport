@@ -1,13 +1,6 @@
 # Setup and requirements
 Project requires Docker and docker-compose(insert cool image here) to start. 
 
-It was developed on the regular codespaces instance - feel free to start there with a command:
-
-```bash
-docker-compose up --build -d
-```
-
-
 Data loading pipeline **will use anonymized data from my dives if the credentials file and folder_id are not available**. This is to ensure that the pipeline can be run without any issues.
 
 There is also an option to run batch inference pipeline and use async requests to export resulted data to a Notion page. This requires a Notion token and a database id. **If they are not provided - the pipeline will only print the data to the console.**
@@ -43,6 +36,13 @@ Now you can run the pipeline and it will load the data from the specified folder
 
 
 ## (Optional) How to setup Notion database
+
+- Step 1: Setup a page with properties like on the image
+
+<img width="996" alt="Properties" src="https://github.com/user-attachments/assets/a8ec9827-53bd-41ea-829a-1ee2aeb05157">
+
+- Step 2: Proceed with the [official tutorial](https://developers.notion.com/docs/create-a-notion-integration#create-your-integration-in-notion)
+
 
 
 
