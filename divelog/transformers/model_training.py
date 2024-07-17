@@ -15,8 +15,8 @@ from datetime import datetime
 import pandas as pd
 import os
 
-RANDOM_SEED = os.getenv("RANDOM_SEED", 42)
-MAX_EVALUATIONS = os.getenv("MAX_EVALUATIONS", 100)
+RANDOM_SEED = int(os.getenv("RANDOM_SEED", 42))
+MAX_EVALUATIONS = int(os.getenv("MAX_EVALUATIONS", 100))
 
 
 @transformer

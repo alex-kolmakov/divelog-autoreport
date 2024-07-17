@@ -19,7 +19,7 @@ NOTION_DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
 
 @custom
 def export_data(reports, *args, **kwargs):
-    if not NOTION_API_TOKEN or NOTION_DATABASE_ID:
+    if not (NOTION_API_TOKEN or NOTION_DATABASE_ID):
         print(f"Notion details were not provided, skipping export to notion..")
         return reports
 

@@ -65,7 +65,7 @@ blocks:
   language: python
   name: notion_export
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: custom
   upstream_blocks:
