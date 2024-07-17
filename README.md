@@ -52,7 +52,7 @@ Since we are using Global Data product - if you try to run the last pipeline wit
 
 Load data -> Train model -> Batch inference.
 
-There is also an option to run this pipeline by setting up your own Google Drive and Notion API credentials. This will allow you to load the data from your own logbook and export the results to your Notion page. For this - please refer to the [additional documentaion](documentaion/setup.md).
+There is also an option to run this pipeline by setting up your own Google Drive and Notion API credentials. This will allow you to load the data from your own logbook and export the results to your Notion page. For this - please refer to the [additional documentaion](./documentation/setup.md).
 
 todo
 Contribute and test
