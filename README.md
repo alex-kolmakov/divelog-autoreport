@@ -44,7 +44,8 @@ integrations tests
 
 ### Architecture Diagram
 
-pending
+![Autodivelog drawio (2)](https://github.com/user-attachments/assets/7bdb24bb-8f9e-4eab-bfcc-e1de3473000e)
+
 
 
 ## Acknowledgements & Credits & Support
