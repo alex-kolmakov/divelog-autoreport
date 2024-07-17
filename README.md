@@ -70,14 +70,16 @@ Start the mage and mlflow containers
 docker-compose up --build
 ```
 
-START CODESPACE VIDEO HERE
+
+
+https://github.com/user-attachments/assets/d5224774-6bb1-451c-90d0-e4ba223e1775
 
 
 Since we are using Global Data product - if you try to run the last pipeline without running the first one - it will start the prerequisite pipeline automatically. But to have more visibility - my advice is to run them in order: 
 
 **Load data** -> **Train model** -> **Batch inference**.
 
-METRICS VIDEO HERE
+
 
 
 There is also an option to run this pipeline by setting up your own Google Drive and Notion API credentials. This will allow you to load the data from your own logbook and export the results to your Notion page. For this - please refer to the [additional documentaion](./documentation/setup.md).
