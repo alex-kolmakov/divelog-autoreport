@@ -81,8 +81,18 @@ Since we are using Global Data product, if you try to run the last pipeline with
 
 
 
+https://github.com/user-attachments/assets/3bdc2e1f-0dc2-4a1b-9c41-f710c6c51d45
 
-There is also an option to run this pipeline by setting up your own Google Drive and Notion API credentials. This will allow you to load the data from your own logbook and export the results to your Notion page. For this - please refer to the [additional documentaion](./documentation/setup.md).
+
+
+
+There is also an option to run this project by setting up your own Google Drive and Notion API credentials. This will allow you to load the data from your own logbook and export the results to your Notion page. For this - please refer to the [additional documentaion](./documentation/setup.md).
+
+
+
+https://github.com/user-attachments/assets/c82adc73-58e9-4afb-af79-e7dd3c368dbe
+
+
 
 
 ### Contribute and test
