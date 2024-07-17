@@ -27,12 +27,32 @@ I will not go into the detail on why (or who was the diver in the pictures :P) b
 
 ## Project overview
 
->Project uses Mage.AI as a main data pipeline orchestration engine, ingests dives export from subsurface then trains classifier on them while keeping experiments tracked through MLFlow.
->Then it uses Notion API to export the results.
+3 pipelines that learn your diving preferences and rates the dives from your Subsurface logbook.
+
+ - **Load data** - pipeline that loads the data from the Subsurface logbook, parses data from xml format and provides it as a clean dataframe through Global data product.
+ - **Train model** - pipeline that trains the model on the data, uses HyperOpt to pick the best parameters looking at ROC_AUC, recall and precision. After *NUMBER_OF_ITERATIONS* saves the best model to the MLflow registry.
+ - **Batch inference** - pipeline that loads the model from the MLflow registry and predicts the rating for the dives in the logbook. It then exports the data to the Notion page using the Notion API.
+
+### Architecture Diagram
+
+![Autodivelog drawio (2)](https://github.com/user-attachments/assets/7bdb24bb-8f9e-4eab-bfcc-e1de3473000e)
+
+
 
 ### Setup
 
+For the quick start you can use the github codespaces and run the following command:
 
+```docker-compose up --build -d```
+
+video here
+
+It will launch the docker container with all the necessary dependencies and then you can proceed to Mage UI to launch pipelines.
+Since we are using Global Data product - if you try to run the last pipeline without running the first one - it will start the prerequisite pipeline automatically. But to have more visibility - my advice is to run them in order: 
+
+Load data -> Train model -> Batch inference.
+
+There is also an option to run this pipeline by setting up your own Google Drive and Notion API credentials. This will allow you to load the data from your own logbook and export the results to your Notion page. For this - please refer to the [additional documentaion](documentaion/setup.md).
 
 todo
 Contribute and test
@@ -42,9 +62,6 @@ pytest and coverage
 integrations tests
 
 
-### Architecture Diagram
-
-![Autodivelog drawio (2)](https://github.com/user-attachments/assets/7bdb24bb-8f9e-4eab-bfcc-e1de3473000e)
 
 
 

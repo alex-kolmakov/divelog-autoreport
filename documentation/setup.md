@@ -41,7 +41,6 @@ FOLDER_ID=XXXXXXXXXXXXX
 ```
 Now you can run the pipeline and it will load the data from the specified folder in Google Drive.
 
----
 
 ## (Optional) How to setup Notion database
 
