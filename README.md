@@ -79,11 +79,9 @@ Since we are using Global Data product, if you try to run the last pipeline with
 
 **Load data** -> **Train model** -> **Batch inference**.
 
-
+When running training pipeline there is an option sneak peek into MLflow UI by visiting forwarded port(or localhost:8012 if you are running locally) and see the model training process and check out training metrics and resulting model in the registry. Check out video below on how to do it in the Codespace:
 
 https://github.com/user-attachments/assets/3bdc2e1f-0dc2-4a1b-9c41-f710c6c51d45
-
-
 
 
 There is also an option to run this project by setting up your own Google Drive and Notion API credentials. This will allow you to load the data from your own logbook and export the results to your Notion page. For this - please refer to the [additional documentaion](./documentation/setup.md).
