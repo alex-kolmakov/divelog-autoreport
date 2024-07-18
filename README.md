@@ -79,7 +79,7 @@ Since we are using Global Data product, if you try to run the last pipeline with
 
 **Load data** -> **Train model** -> **Batch inference**.
 
-When running training pipeline there is an option sneak peek into MLflow UI by visiting forwarded port(or localhost:8012 if you are running locally) and see the model training process and check out training metrics and resulting model in the registry. Check out video below on how to do it in the Codespace:
+When running training pipeline there is an option to sneak peek into MLflow UI by visiting forwarded port (or localhost:8012 if you are running locally). You can check out model training process and metrics as well as resulting model in the registry. Check out video below on how to do it in the Codespace:
 
 https://github.com/user-attachments/assets/3bdc2e1f-0dc2-4a1b-9c41-f710c6c51d45
 
