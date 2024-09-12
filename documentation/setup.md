@@ -47,8 +47,7 @@ Now you can run the pipeline and it will load the data from the specified folder
 
 ## How to run the project
 
-https://github.com/user-attachments/assets/d5224774-6bb1-451c-90d0-e4ba223e1775
-
+Assuming you already started the Codespace, and finished docker-compose procedures, now we can start runnin the project.
 
 Since we are using Global Data product, if you try to run the last pipeline without running the first one, it will start the prerequisite pipeline automatically. But to have more visibility, my advice is to run them in order:
 

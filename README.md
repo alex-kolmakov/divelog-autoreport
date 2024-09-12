@@ -92,6 +92,9 @@ Start by running codespace:
 
 <a href='https://codespaces.new/alex-kolmakov/divelog-autoreport'><img src='https://github.com/codespaces/badge.svg' alt='Open in GitHub Codespaces' style='max-width: 100%;'></a>
 
+https://github.com/user-attachments/assets/d5224774-6bb1-451c-90d0-e4ba223e1775
+
+
 Copy the sample env file:
 
 ```bash
@@ -102,6 +105,7 @@ Start the mage and mlflow containers
 ```bash
 docker-compose up --build
 ```
+
 
 For detailed setup instructions, please refer to the [setup documentaion](./documentation/setup.md).
 
