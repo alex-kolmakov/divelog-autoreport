@@ -8,9 +8,9 @@ WORKDIR ${MAGE_CODE_PATH}
 COPY . .
 COPY divelog/requirements.txt .
 RUN ${PIP} install --upgrade pip && ${PIP} install -r requirements.txt
+RUN dlt --non-interactive init rest_api lancedb
 
 WORKDIR ${MAGE_CODE_PATH}
-RUN dlt --non-interactive init rest_api lancedb
 
 ENV PYTHONPATH="${PYTHONPATH}:/home/src"
 
