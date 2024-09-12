@@ -6,12 +6,12 @@
 [![Linting and tests](https://github.com/alex-kolmakov/divelog-autoreport/actions/workflows/lint_and_test.yaml/badge.svg)](https://github.com/alex-kolmakov/divelog-autoreport/actions/workflows/lint_and_test.yaml)
 
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Mage](https://img.shields.io/badge/-mage-purple?style=for-the-badge&link=https%3A%2F%2Fmage.ai%2F)
+![dlt](https://img.shields.io/badge/-dlt-teal?style=for-the-badge&link=https%3A%2F%2Fdlthub.com%2F)
 ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
-![Google Drive](https://img.shields.io/badge/Google%20Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
 ![mlflow](https://img.shields.io/badge/mlflow-%23d9ead3.svg?style=for-the-badge&logo=numpy&logoColor=blue)
-![lance](https://img.shields.io/badge/-lancedb-white?style=for-the-badge&link=https%3A%2F%2Flancedb.com%2F
-)
+![lance](https://img.shields.io/badge/-lancedb-white?style=for-the-badge&link=https%3A%2F%2Flancedb.com%2F)
 ![ChatGPT](https://img.shields.io/badge/chatGPT-74aa9c?style=for-the-badge&logo=openai&logoColor=white)
 ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
 
@@ -41,7 +41,7 @@ Now the question is:
 
 ```
 > Can the model learn how to rate dives from the logbook like a diver does? 
-> And then help him to improve by providing insights on the worst dives?
+> And then helps to improve by providing insights on the worst dives?
 ```
 
 If you are interested in why dives are different and how can anyone tell ~~(or who was the diver in the pictures :P)~~ - send me a message and I will be happy to explain!
