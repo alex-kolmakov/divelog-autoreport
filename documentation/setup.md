@@ -45,5 +45,22 @@ Now you can run the pipeline and it will load the data from the specified folder
 
 
 
+## How to run the project
+
+https://github.com/user-attachments/assets/d5224774-6bb1-451c-90d0-e4ba223e1775
 
 
+Since we are using Global Data product, if you try to run the last pipeline without running the first one, it will start the prerequisite pipeline automatically. But to have more visibility, my advice is to run them in order:
+
+**Load data** -> **Train model** -> **Batch inference**.
+
+When running training pipeline there is an option sneak peek into MLflow UI by visiting forwarded port(or localhost:8012 if you are running locally) and see the model training process and check out training metrics and resulting model in the registry. Check out video below on how to do it in the Codespace:
+
+https://github.com/user-attachments/assets/3bdc2e1f-0dc2-4a1b-9c41-f710c6c51d45
+
+
+There is also an option to run this project by setting up your own Google Drive and Notion API credentials. This will allow you to load the data from your own logbook and export the results to your Notion page. For this - please refer to the [additional documentaion](./documentation/setup.md).
+
+
+
+https://github.com/user-attachments/assets/c82adc73-58e9-4afb-af79-e7dd3c368dbe
