@@ -50,8 +50,7 @@ It consists of 3 pipelines that learn your diving preferences and rate the dives
 
 ### Architecture Diagram
 
-![Autodivelog drawio (2)](https://github.com/user-attachments/assets/7bdb24bb-8f9e-4eab-bfcc-e1de3473000e)
-
+![Autodivelog drawio (4)](https://github.com/user-attachments/assets/f798b986-ec3e-435b-87aa-7c2bacf57841)
 
 ### Setup
 
