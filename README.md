@@ -66,6 +66,27 @@ It consists of 4 pipelines:
 ![Autodivelog drawio (6)](https://github.com/user-attachments/assets/9684b41c-2f5e-49f8-a1de-0b6fa8b54412)
 
 
+### File structure
+
+```
+├── divelog
+│   ├── custom                         # async functions and dlt pipeline are stored here
+│   ├── data_loade                     # data loader for the dives
+│   ├── pipelines                      # mage stores pipeline definitions here
+│   ├── requirements.txt               # python dependencies
+│   ├── transformers                   # functions for feature extraction and data enrichment
+│   └── utils                          # dlt funcions and notion api helpers
+├── documentation
+└── tests
+├── llm_pipeline_experiments.ipynb     # llm pipeline as one notebook for easy access
+├── anonymized_subsurface_export.ssrf  # anonymized data for testing
+├── credentials.json                   # should be here if you are using your own GDrive
+├── env.sample                         # sample env file
+├── docker-compose.yml
+├── Dockerfile                         # mage dockerfile
+└── mlflow.dockerfile                  # mlflow dockerfile
+```
+
 ### Setup
 
 Start by running codespace: 
