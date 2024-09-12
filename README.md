@@ -9,7 +9,11 @@
 ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
 ![Google Drive](https://img.shields.io/badge/Google%20Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
-![mlflow](https://img.shields.io/badge/mlflow-%23d9ead3.svg?style=for-the-badge&logo=numpy&logoColor=blue)![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
+![mlflow](https://img.shields.io/badge/mlflow-%23d9ead3.svg?style=for-the-badge&logo=numpy&logoColor=blue)
+![lance](https://img.shields.io/badge/-lancedb-white?style=for-the-badge&link=https%3A%2F%2Flancedb.com%2F
+)
+![ChatGPT](https://img.shields.io/badge/chatGPT-74aa9c?style=for-the-badge&logo=openai&logoColor=white)
+![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
 
 
 
@@ -31,10 +35,13 @@ As with any other hobby, the subjective quality and rating of a dive can vary fr
 
 that Dive #1 is much worse than Dive #2. 
 
+Furthermore, even if we know that the dive was not great - how do we improve? What went wrong? What could have been done better?
+
 Now the question is:
 
 ```
-> Can we train a model to rate the dives?
+> Can the model learn how to rate dives from the logbook like a diver does? 
+> And then help him to improve by providing insights on the worst dives?
 ```
 
 If you are interested in why dives are different and how can anyone tell ~~(or who was the diver in the pictures :P)~~ - send me a message and I will be happy to explain!
@@ -42,11 +49,17 @@ If you are interested in why dives are different and how can anyone tell ~~(or w
 
 ## Project overview
 
-It consists of 3 pipelines that learn your diving preferences and rate the dives from your Subsurface logbook.
+It consists of 4 pipelines:
 
- - **Load data** - a pipeline that loads the data from the Subsurface logbook, parses data from XML format, and provides it as a clean dataframe through the Global data product..
+ - **Load dive data** - a pipeline that loads the data from the Subsurface logbook, parses data from XML format.
  - **Train model** - a pipeline that trains the model on the data, uses HyperOpt to pick the best parameters by looking at [ROC_AUC](https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc) and accuracy. After MAX_EVALUATIONS of attempts to optimize hyperparameters, it saves the best model to the MLflow registry.
- - **Batch inference** - a pipeline that loads the model from the MLflow registry and predicts the rating for the dives in the logbook. It then exports the data to the Notion page using the Notion API.
+ - **Load and vectorize DAN content** - a pipeline that loads the data from the DAN website, parses the content and vectorizes it for RAG.
+ - **Batch inference** - final pipeline that:
+    - loads the model from the MLflow registry 
+    - predicts the rating for the dives
+    - generates reports on each dive
+    - augments reports with insights using vectorized DAN content
+    - sends final reports to Notion
 
 ### Architecture Diagram
 
