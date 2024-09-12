@@ -38,6 +38,8 @@ def generate_report(dive_features, model):
         "Pressure Variability": dive_features["pressure_variability"],
         "Minimal NDL": dive_features["min_ndl"],
         "SAC Rate": dive_features["sac_rate"],
+        "Max Ascend Speed": dive_features["max_ascend_speed"],
+        "High Ascend Speed Count": dive_features["high_ascend_speed_count"],
         "Rating": predicted_rating,
         "Issues": [],
     }

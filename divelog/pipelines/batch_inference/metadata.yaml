@@ -39,21 +39,57 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - notion_export
+  - enrich_with_llm_tips
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
   name: generate_reports
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: transformer
   upstream_blocks:
   - load_data
   - train_model
   uuid: generate_reports
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    global_data_product:
+      uuid: dan_documents_vectorized
+  downstream_blocks:
+  - enrich_with_llm_tips
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: dan_documents
+  retry_config: null
+  status: executed
+  timeout: null
+  type: global_data_product
+  upstream_blocks: []
+  uuid: dan_documents
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - notion_export
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: enrich_with_llm_tips
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - generate_reports
+  - dan_documents
+  uuid: enrich_with_llm_tips
+- all_upstream_blocks_executed: true
   color: teal
   configuration:
     file_source:
@@ -65,11 +101,11 @@ blocks:
   language: python
   name: notion_export
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: custom
   upstream_blocks:
-  - generate_reports
+  - enrich_with_llm_tips
   uuid: notion_export
 cache_block_output_in_memory: false
 callbacks: []

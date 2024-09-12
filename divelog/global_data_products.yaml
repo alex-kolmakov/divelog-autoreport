@@ -4,7 +4,14 @@ adverse_condition_labelling_model:
   settings:
     feature_engineering: {}
     model_training: {}
-
+dan_documents_vectorized:
+  object_type: pipeline
+  object_uuid: dan_documents
+  outdated_starting_at:
+    day_of_week: 0
+  repo_path: /home/src/divelog
+  settings:
+    dlt_pipeline: {}
 dive_data:
   object_type: pipeline
   object_uuid: load_data
