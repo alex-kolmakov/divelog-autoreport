@@ -26,6 +26,7 @@ Loads and parses dives data from Subsurface logbook. If the credentials file and
 ### DAN RAG pipeline
 
 _If you are here to evaluate this project for LLM zoomcamp - this is the only pipeline you need to run._
+_There is also [Jupyter notebook](../llm_pipeline_experiments.ipynb) that can be experimented with._
 
 Loads and vectorizes [DAN](https://dan.org/) content using DLT pipeleine and LanceDB. Then it evalueates RAG prompts using relevance scores from hybrid search and faithfulness using LLM as a judge. 
 
@@ -54,7 +55,7 @@ Trains the model on the dives data using HyperOpt to pick the best parameters by
 
 ### Report generation pipeline
 
-Uses registered Global data products to load other pipelines results:
+Uses registered [Global data products](https://docs.mage.ai/orchestration/global-data-products/overview) to load other pipelines results:
 - dataframes with dives data and features
 - model from the MLflow registry
 - table with vectorized DAN content
