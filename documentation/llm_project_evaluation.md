@@ -1,12 +1,10 @@
 ## LLM project
 
-Hi! if you are reading this, you are probably evaluating the LLM project.
-
-This page is specifically made to help out with grading this project for [LLM zoomcamp](https://github.com/DataTalksClub/llm-zoomcamp).
+Hi! if you are reading this, you are probably evaluating projects for [LLM zoomcamp](https://github.com/DataTalksClub/llm-zoomcamp).
 
 For your convenience, project evaluation criteria are listed below with links to the relevant parts of the project.
 
-Refer to the [setup instructions](../documentation/setup.md) to get started with the project. And for evaluation you can only run the [DAN RAG pipeline](../documentation/setup.md#dan-rag-pipeline).
+Refer to the [setup instructions](../documentation/setup.md) to get started with the project. And for evaluation you can only run the [DAN RAG pipeline](../documentation/setup.md#dan-rag-pipeline) or experiment with the [Jupyter notebook](../llm_pipeline_experiments.ipynb) that the pipeline is based on.
 
 If you have any questions or need help, please reach out!
 
