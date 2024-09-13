@@ -18,3 +18,4 @@
       pre-commit run
       ```
 5. If it is all green - then you are ready to submit a PR!
+<img width="572" alt="Screenshot 2024-07-18 at 4 39 19 PM" src="https://github.com/user-attachments/assets/8e5b6ee6-8f62-4af0-acd8-aff2bfad632f">
