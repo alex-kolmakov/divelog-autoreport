@@ -20,12 +20,12 @@ If you have any questions or need help, please reach out!
     * [ ] 1 point: No knowledge base is used, and the LLM is queried directly
     * [x] 2 points: Both a [knowledge base](../divelog/custom/dlt_pipeline.py) and an [LLM](../divelog/transformers/enrich_with_llm_tips.py) are used in the RAG flow
 * Retrieval evaluation
-    * [x] 0 points: No evaluation of retrieval is provided
+    * [ ] 0 points: No evaluation of retrieval is provided
     * [ ] 1 point: Only one retrieval approach is evaluated
-    * [ ] 2 points: Multiple retrieval approaches are evaluated, and the best one is used
+    * [x] 2 points: Multiple retrieval approaches [are evaluated](../divelog/custom/evaluate_prompts.py), and the best one is used
 * RAG evaluation
     * [ ] 0 points: No evaluation of RAG is provided
-    * [x] 1 point: Only one RAG approach (e.g., one prompt) is evaluated
+    * [ ] 1 point: Only one RAG approach (e.g., one prompt) is evaluated
     * [x] 2 points: Multiple RAG approaches [are evaluated](../divelog/custom/evaluate_prompts.py), and the best one is used
 * Interface
    * [ ] 0 points: No way to interact with the application at all
