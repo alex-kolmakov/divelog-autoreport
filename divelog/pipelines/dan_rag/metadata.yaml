@@ -41,7 +41,8 @@ concurrency_config: {}
 conditionals: []
 created_at: '2024-09-13 09:46:04.406912+00:00'
 data_integration: null
-description: null
+description: DLT pipeline that uses incremental loading to download DAN content, vectorize
+  it into LanceDB and then pick best prompts for retireval
 executor_config: {}
 executor_count: 1
 executor_type: null
@@ -54,7 +55,8 @@ run_pipeline_in_one_process: false
 settings:
   triggers: null
 spark_config: {}
-tags: []
+tags:
+- Load
 type: python
 uuid: dan_rag
 variables_dir: /home/src/mage_data/divelog

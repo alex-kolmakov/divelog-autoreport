@@ -50,10 +50,13 @@ If you are interested in why dives are different and how can anyone tell ~~(or w
 
 It consists of 4 pipelines:
 
- - **Load dive data** - a pipeline that loads the data from the Subsurface logbook, parses data from XML format.
+ - **Dives data** - a pipeline that loads the data from the Subsurface logbook, parses data from XML format.
+ 
+ - **DAN RAG** - a pipeline that loads the data from the DAN website, parses the content and vectorizes it for RAG. Then evaluates prompts based on relevance and faithfulness using llm as a judge.
+ 
  - **Train model** - a pipeline that trains the model on the data, uses HyperOpt to pick the best parameters by looking at [ROC_AUC](https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc) and accuracy. After MAX_EVALUATIONS of attempts to optimize hyperparameters, it saves the best model to the MLflow registry.
- - **Load and vectorize DAN content** - a pipeline that loads the data from the DAN website, parses the content and vectorizes it for RAG.
- - **Batch inference** - final pipeline that:
+
+ - **Generate reports** - final pipeline that:
     - loads the model from the MLflow registry 
     - predicts the rating for the dives
     - generates reports on each dive
@@ -111,18 +114,13 @@ For detailed setup instructions, please refer to the [setup documentaion](./docu
 
 
 
-### Contribute and test
-
-> Project uses Github Actions CI/CD and pre-commit hooks for testing and linting.
-
-Before submitting your pull request, please refer to the [contribution guidelines](./documentation/contribution.md). It will guide you through the process of setting up the environment with pre-commit hooks and running the linting and tests.
-
-
 ## Acknowledgements & Credits
 
 If you're interested in contributing to this project, need to report issues or submit pull requests, please get in touch via 
 - [GitHub](https://github.com/alex-kolmakov)
 - [LinkedIn](https://linkedin.com/in/aleksandr-kolmakov)
+
+Before submitting your pull request, please refer to the [contribution guidelines](./documentation/contribution.md). It will guide you through the process of setting up the environment with pre-commit hooks and running the linting and tests.
 
 
 ### Acknowledgements

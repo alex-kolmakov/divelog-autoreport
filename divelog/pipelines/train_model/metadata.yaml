@@ -78,7 +78,8 @@ run_pipeline_in_one_process: false
 settings:
   triggers: null
 spark_config: {}
-tags: []
+tags:
+- Train
 type: python
 uuid: train_model
 variables_dir: /home/src/mage_data/divelog

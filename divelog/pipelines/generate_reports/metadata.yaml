@@ -120,7 +120,7 @@ executor_config: {}
 executor_count: 1
 executor_type: null
 extensions: {}
-name: batch_inference
+name: Generate reports
 notification_config: {}
 remote_variables_dir: null
 retry_config: {}
@@ -128,8 +128,9 @@ run_pipeline_in_one_process: false
 settings:
   triggers: null
 spark_config: {}
-tags: []
+tags:
+- Report
 type: python
-uuid: batch_inference
+uuid: generate_reports
 variables_dir: /home/src/mage_data/divelog
 widgets: []

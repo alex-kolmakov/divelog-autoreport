@@ -43,7 +43,7 @@ executor_config: {}
 executor_count: 1
 executor_type: null
 extensions: {}
-name: load_data
+name: Dives data
 notification_config: {}
 remote_variables_dir: null
 retry_config: {}
@@ -51,8 +51,9 @@ run_pipeline_in_one_process: false
 settings:
   triggers: null
 spark_config: {}
-tags: []
+tags:
+- Load
 type: python
-uuid: load_data
+uuid: dives_data
 variables_dir: /home/src/mage_data/divelog
 widgets: []
