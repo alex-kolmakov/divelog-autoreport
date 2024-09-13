@@ -36,6 +36,8 @@ that Dive #1 is much worse than Dive #2.
 
 Furthermore, even if we know that the dive was not great - how do we improve? What went wrong? What could have been done better?
 
+This is where Retrieval Augmented Generation (RAG) based on the [DAN](https://www.diversalertnetwork.org/) content comes into play. DAN is a non-profit organization that provides expert medical advice and research to help divers stay safe. They have a vast amount of content that can be used to generate insights on the dives and provide recommendations on how to improve.
+
 Now the question is:
 
 ```
