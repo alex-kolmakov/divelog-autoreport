@@ -126,7 +126,7 @@ Before submitting your pull request, please refer to the [contribution guideline
 
 
 ### Acknowledgements
-Acknowledgement to #DataTalksClub for mentoring us through the MLOps Engineering Zoom Camp over the last 10 weeks. It has been a privilege to take part in the  2024 Cohort, go and check them out!
+Acknowledgement to #DataTalksClub for mentoring and providing a safe platform to learn. It has been a privilege to take part in the  2024 Cohort, go and check them out!
 
 ![image](https://github.com/alex-kolmakov/divesite-species-analytics/assets/3127175/d6504180-31a9-4cb7-8cd0-26cd2d0a12ad)
 
