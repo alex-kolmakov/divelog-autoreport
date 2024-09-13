@@ -7,7 +7,7 @@ if "test" not in globals():
 
 
 @custom
-def transform_custom(*args, **kwargs):
+def dan_article_pipeline(*args, **kwargs):
     return run_pipeline(*args, **kwargs)
 
 
