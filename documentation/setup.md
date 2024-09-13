@@ -26,6 +26,7 @@ Loads and parses dives data from Subsurface logbook. If the credentials file and
 ### DAN RAG pipeline
 
 _If you are here to evaluate this project for LLM zoomcamp - this is the only pipeline you need to run._
+
 _There is also [Jupyter notebook](../llm_pipeline_experiments.ipynb) that can be experimented with._
 
 Loads and vectorizes [DAN](https://dan.org/) content using DLT pipeleine and LanceDB. Then it evalueates RAG prompts using relevance scores from hybrid search and faithfulness using LLM as a judge. 
