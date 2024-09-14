@@ -6,7 +6,7 @@ adverse_condition_labelling_model:
     model_training: {}
 dan_documents_vectorized:
   object_type: pipeline
-  object_uuid: dan_documents
+  object_uuid: dan_rag
   outdated_starting_at:
     day_of_week: 0
   repo_path: /home/src/divelog
@@ -14,6 +14,6 @@ dan_documents_vectorized:
     dlt_pipeline: {}
 dive_data:
   object_type: pipeline
-  object_uuid: load_data
+  object_uuid: dives_data
   settings:
     parse_divelog: {}

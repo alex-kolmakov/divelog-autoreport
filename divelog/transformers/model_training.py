@@ -39,7 +39,7 @@ def transform(data, features, *args, **kwargs):
 
     # Split the data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.15, random_state=RANDOM_SEED
+        X, y, test_size=0.3, random_state=RANDOM_SEED
     )
     print("Datasets split and prepared.")
 

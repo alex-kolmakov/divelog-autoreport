@@ -25,7 +25,6 @@ def form_properties(report):
         "Minimal NDL": {"number": report["Minimal NDL"]},
         "SAC Rate": {"number": report["SAC Rate"]},
         "Rating": {"number": report["Rating"]},
-        "Issues": {"multi_select": [{"name": item} for item in report["Issues"]]},
         "Tips": {"rich_text": [{"text": {"content": report["Tips"]}}]},
     }
 

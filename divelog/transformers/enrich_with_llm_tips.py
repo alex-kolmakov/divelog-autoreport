@@ -15,6 +15,18 @@ client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY"),
 )
 LLM_MODEL = os.getenv("LLM_MODEL", "gpt-3.5-turbo")
+LLM_MODEL = "gpt-4o"
+
+
+def retrieve_context_from_lancedb(dbtable, question, top_k=10):
+
+    query_results = dbtable.search(question, query_type="hybrid").to_pandas()
+    results = query_results.sort_values("_relevance_score", ascending=True).nlargest(
+        top_k, "_relevance_score"
+    )
+    context = "\n".join(results["value"])
+
+    return context
 
 
 @transformer
@@ -34,7 +46,7 @@ def transform(reports_data, dlt_pipeline, *args, **kwargs):
             f"The diver's SAC rate was {report['SAC Rate']}. There are {report['High Ascend Speed Count']} instances of high ascend speed with highest ascend speed of {report['Max Ascend Speed']} meters per minute."
         )
 
-        context, _ = retrieve_context_from_lancedb(dbtable, question)
+        context = retrieve_context_from_lancedb(dbtable, question)
 
         messages = [
             {
