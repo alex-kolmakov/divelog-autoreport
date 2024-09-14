@@ -1,7 +1,7 @@
 
 # Dive Log Autoreport
 
->  that learns how to rate dives from your logbook like you do.
+>  that learns how to rate dives and gives advice on how to improve the worst ones.
 
 [![Linting and tests](https://github.com/alex-kolmakov/divelog-autoreport/actions/workflows/lint_and_test.yaml/badge.svg)](https://github.com/alex-kolmakov/divelog-autoreport/actions/workflows/lint_and_test.yaml)
 
@@ -13,7 +13,6 @@
 ![mlflow](https://img.shields.io/badge/mlflow-%23d9ead3.svg?style=for-the-badge&logo=numpy&logoColor=blue)
 ![lance](https://img.shields.io/badge/-lancedb-white?style=for-the-badge&link=https%3A%2F%2Flancedb.com%2F)
 ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
-
 
 
 
@@ -97,7 +96,9 @@ Start by running codespace:
 
 <a href='https://codespaces.new/alex-kolmakov/divelog-autoreport'><img src='https://github.com/codespaces/badge.svg' alt='Open in GitHub Codespaces' style='max-width: 100%;'></a>
 
-https://github.com/user-attachments/assets/d5224774-6bb1-451c-90d0-e4ba223e1775
+
+https://github.com/user-attachments/assets/86db3084-5a48-4e6e-8e30-10c82f390b68
+
 
 
 Copy the sample env file:
@@ -110,6 +111,8 @@ Start the mage and mlflow containers
 ```bash
 docker-compose up --build
 ```
+
+
 
 
 For detailed setup instructions, please refer to the [setup documentaion](./documentation/setup.md).
