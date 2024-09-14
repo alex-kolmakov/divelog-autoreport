@@ -125,6 +125,8 @@ If you're interested in contributing to this project, need to report issues or s
 - [GitHub](https://github.com/alex-kolmakov)
 - [LinkedIn](https://linkedin.com/in/aleksandr-kolmakov)
 
+Project is still under develpoment and I try to keep my ideas for future improvement in a [related project](https://github.com/users/alex-kolmakov/projects/2). Feel free to add yours!
+
 Before submitting your pull request, please refer to the [contribution guidelines](./documentation/contribution.md). It will guide you through the process of setting up the environment with pre-commit hooks and running the linting and tests.
 
 
