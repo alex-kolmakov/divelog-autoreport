@@ -115,7 +115,7 @@ docker-compose up --build
 
 
 
-For detailed setup instructions, please refer to the [setup documentaion](./documentation/setup.md).
+For detailed setup instructions, please refer to the [setup documentation](./documentation/setup.md).
 
 
 

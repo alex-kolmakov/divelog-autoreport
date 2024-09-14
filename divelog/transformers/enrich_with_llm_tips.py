@@ -3,6 +3,7 @@ import lancedb
 import pandas as pd
 import os
 from openai import OpenAI
+from divelog.custom.evaluate_prompts import retrieve_context_from_lancedb
 
 if "transformer" not in globals():
     from mage_ai.data_preparation.decorators import transformer

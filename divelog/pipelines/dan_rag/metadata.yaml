@@ -12,7 +12,7 @@ blocks:
   language: python
   name: dlt_pipeline
   retry_config: null
-  status: not_executed
+  status: executed
   timeout: null
   type: custom
   upstream_blocks: []
@@ -29,7 +29,7 @@ blocks:
   language: python
   name: evaluate_prompts
   retry_config: null
-  status: not_executed
+  status: failed
   timeout: null
   type: custom
   upstream_blocks:
