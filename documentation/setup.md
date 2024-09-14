@@ -17,6 +17,9 @@ The project is split into 4 main pipelines:
 3. Training pipeline - trains the model on the dives data and saves the best model to the MLflow registry
 4. Report generation pipeline - loads the model from the MLflow registry, predicts the rating for the dives, generates reports on each dive, augments reports with insights using vectorized DAN content, and sends final reports to Notion
 
+<img width="1134" alt="Screenshot 2024-09-14 at 10 54 53 AM" src="https://github.com/user-attachments/assets/86e40f78-53fe-404b-8ca4-1b47d9a6e3ac">
+
+
 Project is using [Mage](https://magefile.org/) to manage the pipelines and [MLflow](https://mlflow.org/) to manage the models and to monitor experiments and RAG prompts evaluation.
 
 ### Dive data loading pipeline
@@ -43,11 +46,12 @@ Pipeline supports incremental loading of the data, so you can run it multiple ti
 
 After a successful finish you should see metrics and prompts printed out in the logs 
 
-[image  here]
+<img width="1283" alt="Screenshot 2024-09-14 at 12 01 41 PM" src="https://github.com/user-attachments/assets/54ffcdd7-8f9d-4843-a212-9829ea9b92c4">
+
 
 as well as in the mlflow UI.
 
-image here
+<img width="1505" alt="Screenshot 2024-09-14 at 12 03 46 PM" src="https://github.com/user-attachments/assets/37e3924a-27af-4238-a89e-12b865d1dad3">
 
 
 ### Training pipeline
